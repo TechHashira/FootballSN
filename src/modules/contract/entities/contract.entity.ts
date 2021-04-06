@@ -18,6 +18,9 @@ export class ContractEntity {
   @Column({ type: 'enum', enum: ContractState, default: ContractState.Free })
   contract_state: ContractState;
 
+  @Column({ default: null, nullable: true })
+  contract_worksheet_id?: string;
+
   @OneToOne(() => PlayerEntity)
   @JoinColumn({ name: 'playerId' })
   player: PlayerEntity;
@@ -28,7 +31,4 @@ export class ContractEntity {
   )
   @JoinColumn({ name: 'contract_worksheet_id' })
   contract_worksheet: ContractWorksheetEntity;
-
-  @Column({ default: null, nullable: true })
-  contract_worksheet_id?: string;
 }

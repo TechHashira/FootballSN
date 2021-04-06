@@ -1,5 +1,6 @@
 import { RoleType } from 'src/common/constants';
 import { DeviceEntity } from 'src/modules/devices/entities';
+import { LikesEntity } from 'src/modules/like/entities';
 import { NotificationEntity } from 'src/modules/notification/entities';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { UserAuthForgottenPasswordEntity } from './userAuthForgottenPassword.entity';
@@ -43,4 +44,7 @@ export class UserEntity {
     (forgotten_password) => forgotten_password.user,
   )
   forgotten_passwords: UserAuthForgottenPasswordEntity[];
+
+  @OneToMany(() => LikesEntity, (likes) => likes.user)
+  likes: LikesEntity[];
 }
