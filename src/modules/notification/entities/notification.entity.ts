@@ -12,10 +12,10 @@ export class NotificationEntity {
   @PrimaryGeneratedColumn('uuid')
   notificationId: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   title: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   message: string;
 
   @Column({ type: 'timestamptz' })

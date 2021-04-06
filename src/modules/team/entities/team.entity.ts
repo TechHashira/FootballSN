@@ -17,7 +17,7 @@ export class TeamEntity {
   @PrimaryGeneratedColumn('uuid')
   teamId: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   team_name: string;
 
   @ManyToOne(() => CoachEntity, (coach) => coach.teams)

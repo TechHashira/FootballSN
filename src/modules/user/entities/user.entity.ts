@@ -13,7 +13,7 @@ export class UserEntity {
   @Column({ unique: true })
   email: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   password: string;
 
   @Column({
@@ -24,13 +24,13 @@ export class UserEntity {
   })
   roles: RoleType[];
 
-  @Column()
+  @Column({ type: 'varchar' })
   profilePath: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   name: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   lastname: string;
 
   @OneToMany(() => NotificationEntity, (notification) => notification.user)

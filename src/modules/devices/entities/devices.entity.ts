@@ -12,10 +12,10 @@ export class DeviceEntity {
   @PrimaryGeneratedColumn('uuid')
   deviceId: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   fmcToken: string;
 
-  @Column({ default: true })
+  @Column({ type: 'boolean', default: true })
   active: boolean;
 
   @ManyToOne(() => UserEntity, (user) => user.devices)

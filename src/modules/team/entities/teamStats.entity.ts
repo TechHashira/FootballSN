@@ -14,28 +14,28 @@ export class TeamStatsEntity {
   @PrimaryGeneratedColumn('uuid')
   team_stats_id: string;
 
-  @Column()
+  @Column({ type: 'smallint' })
   matches_played: number;
 
-  @Column()
+  @Column({ type: 'smallint' })
   wins: number;
 
-  @Column()
+  @Column({ type: 'smallint' })
   lost_matches: number;
 
-  @Column()
+  @Column({ type: 'smallint' })
   ties: number;
 
-  @Column()
+  @Column({ type: 'smallint' })
   goals_for: number;
 
-  @Column()
+  @Column({ type: 'smallint' })
   goals_against: number;
 
-  @Column()
+  @Column({ type: 'smallint' })
   goals_difference: number;
 
-  @Column()
+  @Column({ type: 'smallint' })
   points: number;
 
   @OneToOne(() => TournamentEntity)

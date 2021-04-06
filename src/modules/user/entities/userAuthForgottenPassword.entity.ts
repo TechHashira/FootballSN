@@ -12,7 +12,7 @@ export class UserAuthForgottenPasswordEntity {
   @PrimaryGeneratedColumn('uuid')
   user_forgotten_pasword_id: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   hashedToken: string;
 
   @Column({ type: 'timestamptz' })

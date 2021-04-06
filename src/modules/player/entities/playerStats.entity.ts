@@ -14,16 +14,16 @@ export class PlayerStatsEntity {
   @PrimaryGeneratedColumn('uuid')
   player_stats_id: string;
 
-  @Column()
+  @Column({ type: 'smallint' })
   goals: number;
 
-  @Column()
+  @Column({ type: 'smallint' })
   assists: number;
 
-  @Column()
+  @Column({ type: 'smallint' })
   yellow_cards: number;
 
-  @Column()
+  @Column({ type: 'smallint' })
   red_cards: number;
 
   @ManyToOne(() => PlayerEntity, (player) => player.player_stats)

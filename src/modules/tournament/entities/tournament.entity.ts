@@ -23,6 +23,9 @@ export class TournamentEntity {
   @Column({ type: 'timestamptz', nullable: true })
   final_date: Date;
 
+  @Column({ type: 'varchar' })
+  invitation_code: string;
+
   @ManyToOne(() => AdminEntity, (admin) => admin.tournaments)
   @JoinColumn({ name: 'adminId' })
   admin: AdminEntity;
