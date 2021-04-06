@@ -4,6 +4,7 @@ import * as helmet from 'helmet';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { useContainer } from 'class-validator';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -11,6 +12,10 @@ async function bootstrap() {
   app.use(helmet());
   app.enableCors();
 
+  useContainer(app.select(AppModule), {
+    fallback: true,
+    fallbackOnErrors: true,
+  });
   const config = new DocumentBuilder()
     .setTitle('football social network')
     .setVersion('1.0')

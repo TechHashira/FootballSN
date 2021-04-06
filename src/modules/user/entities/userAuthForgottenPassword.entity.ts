@@ -1,9 +1,11 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { UserEntity } from './user.entity';
 
@@ -15,10 +17,14 @@ export class UserAuthForgottenPasswordEntity {
   @Column({ type: 'varchar' })
   hashedToken: string;
 
-  @Column({ type: 'timestamptz' })
+  @CreateDateColumn({ type: 'timestamp without time zone', default: 'NOW()' })
   createdAt: Date;
 
-  @Column({ type: 'timestamptz' })
+  @UpdateDateColumn({
+    type: 'timestamp without time zone',
+    onUpdate: 'NOW()',
+    nullable: true,
+  })
   updatedAt: Date;
 
   @ManyToOne(() => UserEntity, (user) => user.forgotten_passwords)

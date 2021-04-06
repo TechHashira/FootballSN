@@ -18,10 +18,10 @@ export class NotificationEntity {
   @Column({ type: 'varchar' })
   message: string;
 
-  @Column({ type: 'timestamptz' })
+  @Column({ type: 'timestamptz', nullable: true })
   readAt: Date;
 
-  @Column({ type: 'timestamptz' })
+  @Column({ type: 'timestamptz', nullable: true })
   sentAt: Date;
 
   @Column({ type: 'timestamptz' })

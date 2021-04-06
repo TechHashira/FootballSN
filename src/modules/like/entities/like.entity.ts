@@ -1,7 +1,7 @@
 import { NewsEntity } from 'src/modules/notice/entities';
 import { UserEntity } from 'src/modules/user/entities';
 import {
-  Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
@@ -13,7 +13,7 @@ export class LikesEntity {
   @PrimaryGeneratedColumn('uuid')
   likeId: string;
 
-  @Column({ type: 'timestamptz' })
+  @CreateDateColumn({ type: 'timestamp without time zone', default: 'NOW()' })
   likeAt: Date;
 
   @ManyToOne(() => NewsEntity, (news) => news.likes)

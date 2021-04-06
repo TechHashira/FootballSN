@@ -1,11 +1,19 @@
+import { Exclude } from 'class-transformer';
 import { RoleType } from 'src/common/constants';
 import { DeviceEntity } from 'src/modules/devices/entities';
 import { LikesEntity } from 'src/modules/like/entities';
 import { NotificationEntity } from 'src/modules/notification/entities';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { UserAuthForgottenPasswordEntity } from './userAuthForgottenPassword.entity';
 
-@Entity({ name: 'user' })
+@Entity({ name: 'user_table' })
 export class UserEntity {
   @PrimaryGeneratedColumn('uuid')
   userId: string;
@@ -13,8 +21,19 @@ export class UserEntity {
   @Column({ unique: true })
   email: string;
 
+  @Exclude()
   @Column({ type: 'varchar' })
   password: string;
+
+  @CreateDateColumn({ type: 'timestamp without time zone', default: 'NOW()' })
+  createdAt: Date;
+
+  @UpdateDateColumn({
+    type: 'timestamp without time zone',
+    onUpdate: 'NOW()',
+    nullable: true,
+  })
+  updatedAt: Date;
 
   @Column({
     type: 'enum',
@@ -24,7 +43,7 @@ export class UserEntity {
   })
   roles: RoleType[];
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', default: 'profile.jpg' })
   profilePath: string;
 
   @Column({ type: 'varchar' })
@@ -47,4 +66,8 @@ export class UserEntity {
 
   @OneToMany(() => LikesEntity, (likes) => likes.user)
   likes: LikesEntity[];
+
+  constructor(partial: Partial<UserEntity>) {
+    Object.assign(this, partial);
+  }
 }

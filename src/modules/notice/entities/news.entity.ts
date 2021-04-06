@@ -2,12 +2,14 @@ import { AdminEntity } from 'src/modules/admin/entities';
 import { LikesEntity } from 'src/modules/like/entities';
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { NewsWallEntity } from './newsWall.entity';
 
@@ -16,11 +18,15 @@ export class NewsEntity {
   @PrimaryGeneratedColumn('uuid')
   newsId: string;
 
-  @Column({ type: 'timestamptz' })
+  @CreateDateColumn({ type: 'timestamp without time zone', default: 'NOW()' })
   createdAt: Date;
 
-  @Column({ type: 'timestamptz', nullable: true, default: null })
-  updatedAt?: Date;
+  @UpdateDateColumn({
+    type: 'timestamp without time zone',
+    onUpdate: 'NOW()',
+    nullable: true,
+  })
+  updatedAt: Date;
 
   @Column({ type: 'varchar' })
   text: string;
