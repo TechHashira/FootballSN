@@ -1,3 +1,4 @@
+import { MatchEntity } from 'src/modules/match/entities/match.entity';
 import { TournamentEntity } from 'src/modules/tournament/entities/tournament.entity';
 import {
   Column,
@@ -45,4 +46,8 @@ export class TeamStatsEntity {
   @ManyToOne(() => TeamEntity, (team) => team.team_stats)
   @JoinColumn({ name: 'teamId' })
   team: TeamEntity;
+
+  @ManyToOne(() => MatchEntity, (match) => match.matchsStats)
+  @JoinColumn({ name: 'matchId' })
+  match: MatchEntity;
 }

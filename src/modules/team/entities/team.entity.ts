@@ -1,4 +1,6 @@
 import { CoachEntity } from 'src/modules/coach/entities';
+import { MatchEntity } from 'src/modules/match/entities/match.entity';
+import { MatchStatsByTeamEntity } from 'src/modules/match/entities/matchStatsByTeam.entity';
 import { TournamentEntity } from 'src/modules/tournament/entities/tournament.entity';
 import {
   Column,
@@ -30,4 +32,10 @@ export class TeamEntity {
 
   @OneToMany(() => TeamStatsEntity, (team_stats) => team_stats.team)
   team_stats: TeamStatsEntity[];
+
+  @OneToMany(() => MatchEntity, (match) => match.team)
+  matchs: MatchEntity[];
+
+  @OneToMany(() => MatchStatsByTeamEntity, (matchsStasts) => matchsStasts.team)
+  matchsStats: MatchStatsByTeamEntity[];
 }

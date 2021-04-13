@@ -1,4 +1,4 @@
-import { MatchEntity } from 'src/modules/match/entities/match.entity';
+import { MatchHistoryEntity } from 'src/modules/match/entities/matchHistory.entity';
 import { TournamentEntity } from 'src/modules/tournament/entities/tournament.entity';
 import {
   Entity,
@@ -17,6 +17,6 @@ export class JourneyEntity {
   @JoinColumn({ name: 'tournamentId' })
   tournament: TournamentEntity;
 
-  @OneToMany(() => MatchEntity, (match) => match.journey)
-  matchs: MatchEntity[];
+  @OneToMany(() => MatchHistoryEntity, (match) => match.journey)
+  matchs: MatchHistoryEntity[];
 }

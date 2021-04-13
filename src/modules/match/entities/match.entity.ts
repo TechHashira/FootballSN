@@ -1,25 +1,27 @@
-import { JourneyEntity } from 'src/modules/journey/entities';
+import { TeamEntity } from 'src/modules/team/entities';
 import {
-  Column,
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { IMatchProperties } from '../interfaces/match.interface';
+import { MatchHistoryEntity } from './matchHistory.entity';
+import { MatchStatsByTeamEntity } from './matchStatsByTeam.entity';
 
 @Entity({ name: 'match' })
 export class MatchEntity {
   @PrimaryGeneratedColumn('uuid')
   matchId: string;
 
-  @Column({ type: 'timestamptz' })
-  start_time: Date;
+  @ManyToOne(() => MatchHistoryEntity, (matchHistory) => matchHistory.matchs)
+  @JoinColumn({ name: 'match_history_id' })
+  matchHistory: MatchHistoryEntity;
 
-  @Column({ type: 'jsonb' })
-  match_data: IMatchProperties[];
+  @ManyToOne(() => TeamEntity, (team) => team.matchs)
+  @JoinColumn({ name: 'teamId' })
+  team: TeamEntity;
 
-  @ManyToOne(() => JourneyEntity, (journey) => journey.matchs)
-  @JoinColumn({ name: 'journeyId' })
-  journey: JourneyEntity;
+  @OneToMany(() => MatchStatsByTeamEntity, (matchsStats) => matchsStats.match)
+  matchsStats: MatchStatsByTeamEntity[];
 }
