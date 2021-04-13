@@ -22,6 +22,9 @@ export class TeamEntity {
   @Column({ type: 'varchar' })
   team_name: string;
 
+  @Column({ type: 'boolean', default: true })
+  available: boolean;
+
   @ManyToOne(() => CoachEntity, (coach) => coach.teams)
   @JoinColumn({ name: 'coachId' })
   coach: CoachEntity;

@@ -39,7 +39,7 @@ export class UserEntity {
     type: 'enum',
     enum: RoleType,
     array: true,
-    default: [RoleType.User],
+    nullable: true,
   })
   roles: RoleType[];
 
@@ -51,6 +51,9 @@ export class UserEntity {
 
   @Column({ type: 'varchar' })
   lastname: string;
+
+  @Column({ type: 'boolean', default: true })
+  available: boolean;
 
   @OneToMany(() => NotificationEntity, (notification) => notification.user)
   notifications: NotificationEntity[];
