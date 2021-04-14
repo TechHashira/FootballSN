@@ -1,5 +1,5 @@
 import { Exclude } from 'class-transformer';
-import { RoleType } from 'src/common/constants';
+import { Role } from 'src/common/constants';
 import { DeviceEntity } from 'src/modules/devices/entities';
 import { LikesEntity } from 'src/modules/like/entities';
 import { NotificationEntity } from 'src/modules/notification/entities';
@@ -18,7 +18,7 @@ export class UserEntity {
   @PrimaryGeneratedColumn('uuid')
   userId: string;
 
-  @Column({ unique: true })
+  @Column({ type: 'varchar', unique: true })
   email: string;
 
   @Exclude()
@@ -37,11 +37,9 @@ export class UserEntity {
 
   @Column({
     type: 'enum',
-    enum: RoleType,
-    array: true,
-    nullable: true,
+    enum: Role,
   })
-  roles: RoleType[];
+  roles: Role;
 
   @Column({ type: 'varchar', default: 'profile.jpg' })
   profilePath: string;

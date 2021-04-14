@@ -1,9 +1,8 @@
-export enum RoleType {
-  Admin = 'admin',
-  Spectator = 'spectator',
-  Player = 'player',
-  Referee = 'referee',
-  Coach = 'coach',
+export enum Role {
+  ADMIN = 'ADMIN',
+  PLAYER = 'PLAYER',
+  SPECTATOR = 'SPECTATOR',
+  COACH = 'COACH',
+  REFEREE = 'REFEREE',
 }
-
 export const ROLES_KEY = 'roles';

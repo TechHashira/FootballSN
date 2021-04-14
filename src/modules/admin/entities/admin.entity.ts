@@ -14,7 +14,7 @@ export class AdminEntity {
   adminId: string;
 
   @OneToOne(() => UserEntity)
-  @JoinColumn()
+  @JoinColumn({ name: 'userId' })
   user: UserEntity;
 
   @OneToMany(() => TournamentEntity, (tournament) => tournament.admin)

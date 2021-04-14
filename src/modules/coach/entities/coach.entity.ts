@@ -15,7 +15,7 @@ export class CoachEntity {
 
   @OneToOne(() => PlayerEntity)
   @JoinColumn({ name: 'playerId' })
-  user: PlayerEntity;
+  player: PlayerEntity;
 
   @OneToMany(() => TeamEntity, (team) => team.coach)
   teams: TeamEntity[];

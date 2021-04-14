@@ -1,7 +1,7 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class Mig1001618333329742 implements MigrationInterface {
-    name = 'Mig1001618333329742'
+export class Mig1011618387697236 implements MigrationInterface {
+    name = 'Mig1011618387697236'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`CREATE TABLE "device" ("deviceId" uuid NOT NULL DEFAULT uuid_generate_v4(), "fmcToken" character varying NOT NULL, "active" boolean NOT NULL DEFAULT true, "userId" uuid, CONSTRAINT "PK_6fe2df6e1c34fc6c18c786ca26e" PRIMARY KEY ("deviceId"))`);
@@ -10,8 +10,8 @@ export class Mig1001618333329742 implements MigrationInterface {
         await queryRunner.query(`CREATE TABLE "likes" ("likeId" uuid NOT NULL DEFAULT uuid_generate_v4(), "likeAt" TIMESTAMP NOT NULL DEFAULT 'NOW()', "newsId" uuid, "userId" uuid, CONSTRAINT "PK_f1adfd27aaa74667194baab8318" PRIMARY KEY ("likeId"))`);
         await queryRunner.query(`CREATE TABLE "notification" ("notificationId" uuid NOT NULL DEFAULT uuid_generate_v4(), "title" character varying NOT NULL, "message" character varying NOT NULL, "readAt" TIMESTAMP WITH TIME ZONE, "sentAt" TIMESTAMP WITH TIME ZONE, "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL, "userId" uuid, CONSTRAINT "PK_34ecf236e96be76a41929c131b7" PRIMARY KEY ("notificationId"))`);
         await queryRunner.query(`CREATE TABLE "users_auth_forgotten_passwords" ("user_forgotten_pasword_id" uuid NOT NULL DEFAULT uuid_generate_v4(), "hashedToken" character varying NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT 'NOW()', "updatedAt" TIMESTAMP DEFAULT now(), "userId" uuid, CONSTRAINT "PK_805455d56118b556c3c07808850" PRIMARY KEY ("user_forgotten_pasword_id"))`);
-        await queryRunner.query(`CREATE TYPE "user_table_roles_enum" AS ENUM('admin', 'spectator', 'player', 'referee', 'coach')`);
-        await queryRunner.query(`CREATE TABLE "user_table" ("userId" uuid NOT NULL DEFAULT uuid_generate_v4(), "email" character varying NOT NULL, "password" character varying NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT 'NOW()', "updatedAt" TIMESTAMP DEFAULT now(), "roles" "user_table_roles_enum" array, "profilePath" character varying NOT NULL DEFAULT 'profile.jpg', "name" character varying NOT NULL, "lastname" character varying NOT NULL, "available" boolean NOT NULL DEFAULT true, CONSTRAINT "UQ_517f1a649ad49fa1435e54b0d5f" UNIQUE ("email"), CONSTRAINT "PK_19d4cfd316c838a502c6bc08090" PRIMARY KEY ("userId"))`);
+        await queryRunner.query(`CREATE TYPE "user_table_roles_enum" AS ENUM('ADMIN', 'PLAYER', 'SPECTATOR', 'COACH', 'REFEREE')`);
+        await queryRunner.query(`CREATE TABLE "user_table" ("userId" uuid NOT NULL DEFAULT uuid_generate_v4(), "email" character varying NOT NULL, "password" character varying NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT 'NOW()', "updatedAt" TIMESTAMP DEFAULT now(), "roles" "user_table_roles_enum" NOT NULL, "profilePath" character varying NOT NULL DEFAULT 'profile.jpg', "name" character varying NOT NULL, "lastname" character varying NOT NULL, "available" boolean NOT NULL DEFAULT true, CONSTRAINT "UQ_517f1a649ad49fa1435e54b0d5f" UNIQUE ("email"), CONSTRAINT "PK_19d4cfd316c838a502c6bc08090" PRIMARY KEY ("userId"))`);
         await queryRunner.query(`CREATE TABLE "referee" ("refereeId" uuid NOT NULL DEFAULT uuid_generate_v4(), "userId" uuid, CONSTRAINT "REL_6697d3317bea5e6b6f1b091b20" UNIQUE ("userId"), CONSTRAINT "PK_32969459d263cd8038437276f15" PRIMARY KEY ("refereeId"))`);
         await queryRunner.query(`CREATE TABLE "player" ("playerId" uuid NOT NULL DEFAULT uuid_generate_v4(), "userId" uuid, CONSTRAINT "REL_7687919bf054bf262c669d3ae2" UNIQUE ("userId"), CONSTRAINT "PK_ee365af3f201a00d9a917bc45b0" PRIMARY KEY ("playerId"))`);
         await queryRunner.query(`CREATE TABLE "player_stats" ("player_stats_id" uuid NOT NULL DEFAULT uuid_generate_v4(), "goals" smallint NOT NULL, "assists" smallint NOT NULL, "yellow_cards" smallint NOT NULL, "red_cards" smallint NOT NULL, "playerId" uuid, "tournamentId" uuid, CONSTRAINT "REL_05b9696f56d24a76e074bc073c" UNIQUE ("tournamentId"), CONSTRAINT "PK_69560c5085131e624ce968bc419" PRIMARY KEY ("player_stats_id"))`);
@@ -28,7 +28,7 @@ export class Mig1001618333329742 implements MigrationInterface {
         await queryRunner.query(`CREATE TABLE "journey" ("journeyId" uuid NOT NULL DEFAULT uuid_generate_v4(), "tournamentId" uuid, CONSTRAINT "PK_928ffec26b046479535ec3fe1f5" PRIMARY KEY ("journeyId"))`);
         await queryRunner.query(`CREATE TABLE "rules" ("rulesId" uuid NOT NULL DEFAULT uuid_generate_v4(), "timeOfEachHalf" smallint, "maxOfplayersByMatch" smallint, "tournamentTournamentId" uuid, CONSTRAINT "PK_91d9e8176dffb97874a712509a1" PRIMARY KEY ("rulesId"))`);
         await queryRunner.query(`CREATE TABLE "tournament" ("tournamentId" uuid NOT NULL DEFAULT uuid_generate_v4(), "tournament_name" character varying NOT NULL, "init_date" TIMESTAMP WITH TIME ZONE, "final_date" TIMESTAMP WITH TIME ZONE, "invitation_code" character varying NOT NULL, "adminId" uuid, CONSTRAINT "PK_fbec894d68c361a6aa2db4cfd4e" PRIMARY KEY ("tournamentId"))`);
-        await queryRunner.query(`CREATE TABLE "admin" ("adminId" uuid NOT NULL DEFAULT uuid_generate_v4(), "userUserId" uuid, CONSTRAINT "REL_c446b7836cdf28fc0056aa555c" UNIQUE ("userUserId"), CONSTRAINT "PK_abce4cc3fe598f242ab45e529b6" PRIMARY KEY ("adminId"))`);
+        await queryRunner.query(`CREATE TABLE "admin" ("adminId" uuid NOT NULL DEFAULT uuid_generate_v4(), "userId" uuid, CONSTRAINT "REL_f8a889c4362d78f056960ca6da" UNIQUE ("userId"), CONSTRAINT "PK_abce4cc3fe598f242ab45e529b6" PRIMARY KEY ("adminId"))`);
         await queryRunner.query(`CREATE TABLE "player_tournaments_tournament" ("playerPlayerId" uuid NOT NULL, "tournamentTournamentId" uuid NOT NULL, CONSTRAINT "PK_48ec3951958e2ef837ac5966310" PRIMARY KEY ("playerPlayerId", "tournamentTournamentId"))`);
         await queryRunner.query(`CREATE INDEX "IDX_6cb7545b1da8f1d3a3b077875e" ON "player_tournaments_tournament" ("playerPlayerId") `);
         await queryRunner.query(`CREATE INDEX "IDX_1f77835708d1b4c0347548cbf0" ON "player_tournaments_tournament" ("tournamentTournamentId") `);
@@ -65,7 +65,7 @@ export class Mig1001618333329742 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "journey" ADD CONSTRAINT "FK_eac58e69074a84917a60753f60e" FOREIGN KEY ("tournamentId") REFERENCES "tournament"("tournamentId") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "rules" ADD CONSTRAINT "FK_09b5474cc93d2d3784d7f33b417" FOREIGN KEY ("tournamentTournamentId") REFERENCES "tournament"("tournamentId") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "tournament" ADD CONSTRAINT "FK_6d60a03b2140b8d5dded5cd277f" FOREIGN KEY ("adminId") REFERENCES "admin"("adminId") ON DELETE NO ACTION ON UPDATE NO ACTION`);
-        await queryRunner.query(`ALTER TABLE "admin" ADD CONSTRAINT "FK_c446b7836cdf28fc0056aa555c7" FOREIGN KEY ("userUserId") REFERENCES "user_table"("userId") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "admin" ADD CONSTRAINT "FK_f8a889c4362d78f056960ca6dad" FOREIGN KEY ("userId") REFERENCES "user_table"("userId") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "player_tournaments_tournament" ADD CONSTRAINT "FK_6cb7545b1da8f1d3a3b077875ed" FOREIGN KEY ("playerPlayerId") REFERENCES "player"("playerId") ON DELETE CASCADE ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "player_tournaments_tournament" ADD CONSTRAINT "FK_1f77835708d1b4c0347548cbf0f" FOREIGN KEY ("tournamentTournamentId") REFERENCES "tournament"("tournamentId") ON DELETE CASCADE ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "team_tournaments_tournament" ADD CONSTRAINT "FK_43105100533eadd216da4c878c3" FOREIGN KEY ("teamTeamId") REFERENCES "team"("teamId") ON DELETE CASCADE ON UPDATE NO ACTION`);
@@ -77,7 +77,7 @@ export class Mig1001618333329742 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "team_tournaments_tournament" DROP CONSTRAINT "FK_43105100533eadd216da4c878c3"`);
         await queryRunner.query(`ALTER TABLE "player_tournaments_tournament" DROP CONSTRAINT "FK_1f77835708d1b4c0347548cbf0f"`);
         await queryRunner.query(`ALTER TABLE "player_tournaments_tournament" DROP CONSTRAINT "FK_6cb7545b1da8f1d3a3b077875ed"`);
-        await queryRunner.query(`ALTER TABLE "admin" DROP CONSTRAINT "FK_c446b7836cdf28fc0056aa555c7"`);
+        await queryRunner.query(`ALTER TABLE "admin" DROP CONSTRAINT "FK_f8a889c4362d78f056960ca6dad"`);
         await queryRunner.query(`ALTER TABLE "tournament" DROP CONSTRAINT "FK_6d60a03b2140b8d5dded5cd277f"`);
         await queryRunner.query(`ALTER TABLE "rules" DROP CONSTRAINT "FK_09b5474cc93d2d3784d7f33b417"`);
         await queryRunner.query(`ALTER TABLE "journey" DROP CONSTRAINT "FK_eac58e69074a84917a60753f60e"`);
