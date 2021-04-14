@@ -10,7 +10,11 @@ import { AdminService } from 'src/modules/admin/services/admin.service';
 import { CoachService } from 'src/modules/coach/services/coach.service';
 import { PlayerService } from 'src/modules/player/services/player.service';
 import { RefereeService } from 'src/modules/referee/services/referee.service';
-import { CreateUserDto } from 'src/modules/user/dtos';
+import { CreateAdminDto } from 'src/modules/user/dtos/creationalDtos/createAdminDto.dto';
+import { CreateCoachDto } from 'src/modules/user/dtos/creationalDtos/createCoachDto.dto';
+import { CreatePlayerDto } from 'src/modules/user/dtos/creationalDtos/createPlayerDto.dto';
+import { CreateRefereeDto } from 'src/modules/user/dtos/creationalDtos/createRefereeDto.dto';
+import { CreateSpectatorDto } from 'src/modules/user/dtos/creationalDtos/createSpectatorDto.dto';
 import { UserService } from 'src/modules/user/services';
 
 @Controller('v1/auth')
@@ -25,32 +29,31 @@ export class AuthController {
 
   @Post('admins')
   @UseInterceptors(ClassSerializerInterceptor, ResponseTransformInterceptor)
-  async registerAdmin(@Body() createUserDto: CreateUserDto) {
-    console.log('dto =>', createUserDto);
-    return await this._adminService.createAdmin(createUserDto);
+  async registerAdmin(@Body() createAdminDto: CreateAdminDto) {
+    return await this._adminService.createAdmin(createAdminDto);
   }
 
   @Post('players')
   @UseInterceptors(ClassSerializerInterceptor, ResponseTransformInterceptor)
-  async registerPlayer(@Body() createUserDto: CreateUserDto) {
-    return await this._playerService.createPlayer(createUserDto);
+  async registerPlayer(@Body() createPlayerDto: CreatePlayerDto) {
+    return await this._playerService.createPlayer(createPlayerDto);
   }
 
   @Post('coachs')
   @UseInterceptors(ClassSerializerInterceptor, ResponseTransformInterceptor)
-  async registerCoach(@Body() createUserDto: CreateUserDto) {
-    return this._coachService.createCoach(createUserDto);
+  async registerCoach(@Body() createCoachDto: CreateCoachDto) {
+    return this._coachService.createCoach(createCoachDto);
   }
 
   @Post('spectators')
   @UseInterceptors(ClassSerializerInterceptor, ResponseTransformInterceptor)
-  async registerSpectator(@Body() createUserDto: CreateUserDto) {
-    return this._userService.createUser(createUserDto);
+  async registerSpectator(@Body() createSpectatorDto: CreateSpectatorDto) {
+    return this._userService.createUser(createSpectatorDto);
   }
 
   @Post('referees')
   @UseInterceptors(ClassSerializerInterceptor, ResponseTransformInterceptor)
-  async registerReferee(@Body() createUserDto: CreateUserDto) {
-    return this._refereeService.createReferee(createUserDto);
+  async registerReferee(@Body() createRefereDto: CreateRefereeDto) {
+    return this._refereeService.createReferee(createRefereDto);
   }
 }

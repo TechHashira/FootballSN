@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreatedFailedException } from 'src/exceptions/createdFailed.exception';
-import { CreateUserDto } from 'src/modules/user/dtos';
+import { CreatePlayerDto } from 'src/modules/user/dtos/creationalDtos/createPlayerDto.dto';
 import { UserEntity } from 'src/modules/user/entities';
 import { Connection } from 'typeorm';
 import { PlayerEntity } from '../entities';
@@ -9,7 +9,7 @@ import { PlayerEntity } from '../entities';
 export class PlayerService {
   constructor(private connection: Connection) {}
 
-  async createPlayer(createUserDto: CreateUserDto): Promise<PlayerEntity> {
+  async createPlayer(createPlayerDto: CreatePlayerDto): Promise<PlayerEntity> {
     const queryRunner = this.connection.createQueryRunner();
 
     await queryRunner.connect();
@@ -18,7 +18,7 @@ export class PlayerService {
     try {
       const user = queryRunner.manager.create<UserEntity>(
         UserEntity,
-        createUserDto,
+        createPlayerDto,
       );
       await queryRunner.manager.save<UserEntity>(user);
 

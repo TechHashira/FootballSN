@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreatedFailedException } from 'src/exceptions/createdFailed.exception';
-import { CreateUserDto } from 'src/modules/user/dtos';
+import { CreateAdminDto } from 'src/modules/user/dtos/creationalDtos/createAdminDto.dto';
 import { UserEntity } from 'src/modules/user/entities';
 import { Connection } from 'typeorm';
 import { AdminEntity } from '../entities';
@@ -9,7 +9,7 @@ import { AdminEntity } from '../entities';
 export class AdminService {
   constructor(private connection: Connection) {}
 
-  async createAdmin(createUserDto: CreateUserDto): Promise<AdminEntity> {
+  async createAdmin(createAdminDto: CreateAdminDto): Promise<AdminEntity> {
     const queryRunner = this.connection.createQueryRunner();
 
     await queryRunner.connect();
@@ -18,7 +18,7 @@ export class AdminService {
     try {
       const user = queryRunner.manager.create<UserEntity>(
         UserEntity,
-        createUserDto,
+        createAdminDto,
       );
       await queryRunner.manager.save<UserEntity>(user);
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreatedFailedException } from 'src/exceptions/createdFailed.exception';
-import { CreateUserDto } from '../dtos';
+import { CreateSpectatorDto } from '../dtos/creationalDtos/createSpectatorDto.dto';
 import { UserEntity } from '../entities';
 import { UserRepository } from '../repositories';
 
@@ -8,9 +8,9 @@ import { UserRepository } from '../repositories';
 export class UserService {
   constructor(private readonly _userRepository: UserRepository) {}
 
-  async createUser(createUserDto: CreateUserDto) {
+  async createUser(createSpectator: CreateSpectatorDto) {
     try {
-      const user = this._userRepository.create(createUserDto);
+      const user = this._userRepository.create(createSpectator);
       await this._userRepository.save<UserEntity>(user);
       return user;
     } catch ({ message }) {

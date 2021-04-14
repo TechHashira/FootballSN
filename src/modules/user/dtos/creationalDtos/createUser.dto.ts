@@ -1,13 +1,11 @@
 import {
   IsEmail,
-  IsEnum,
   IsNotEmpty,
   IsString,
   Length,
   Validate,
 } from 'class-validator';
-import { Role } from 'src/common/constants';
-import { IsEmailAlreadyExistsContraint } from './isEmailAlreadyExist.cv-decorator';
+import { IsEmailAlreadyExistsContraint } from '..';
 
 export class CreateUserDto {
   @IsNotEmpty()
@@ -26,8 +24,4 @@ export class CreateUserDto {
   @IsNotEmpty()
   @Length(6, 20)
   password: string;
-
-  @IsNotEmpty()
-  @IsEnum(Role, { message: 'Unexpected role' })
-  roles: Role;
 }
