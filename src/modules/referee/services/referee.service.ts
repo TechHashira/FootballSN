@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreatedFailedException } from 'src/exceptions/createdFailed.exception';
+import { SecurityService } from 'src/modules/security/services/security.service';
 import { CreateRefereeDto } from 'src/modules/user/dtos/creationalDtos/createRefereeDto.dto';
 import { UserEntity } from 'src/modules/user/entities';
 import { Connection } from 'typeorm';
@@ -7,7 +8,10 @@ import { RefereeEntity } from '../entities/referee.entity';
 
 @Injectable()
 export class RefereeService {
-  constructor(private connection: Connection) {}
+  constructor(
+    private connection: Connection,
+    private _securityService: SecurityService,
+  ) {}
 
   async createReferee(createRefereeDto: CreateRefereeDto) {
     const queryRunner = this.connection.createQueryRunner();
@@ -16,9 +20,12 @@ export class RefereeService {
     await queryRunner.startTransaction();
 
     try {
+      const dtoHashed = await this._securityService.hashPassword(
+        createRefereeDto,
+      );
       const user = queryRunner.manager.create<UserEntity>(
         UserEntity,
-        createRefereeDto,
+        dtoHashed,
       );
       await queryRunner.manager.save<UserEntity>(user);
 
