@@ -7,7 +7,6 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 import { ResponseTransformInterceptor } from 'src/interceptors/responseTransform.interceptor';
 import { AdminService } from 'src/modules/admin/services/admin.service';
 import { CoachService } from 'src/modules/coach/services/coach.service';
@@ -19,9 +18,10 @@ import { CreatePlayerDto } from 'src/modules/user/dtos/creationalDtos/createPlay
 import { CreateRefereeDto } from 'src/modules/user/dtos/creationalDtos/createRefereeDto.dto';
 import { CreateSpectatorDto } from 'src/modules/user/dtos/creationalDtos/createSpectatorDto.dto';
 import { UserService } from 'src/modules/user/services';
-import { LoginRequestDto } from '../dots/loginRequestDto.dto';
+import { RefreshTokenDto } from '../dots/accessTokenDto.dto';
 import { LocalAuthGuard } from '../guards/localAuth.guard';
 import { AuthService } from '../services/auth.service';
+import { TokenService } from '../services/token.service';
 
 @Controller('v1/auth')
 export class AuthController {
@@ -32,6 +32,7 @@ export class AuthController {
     private _userService: UserService,
     private _refereeService: RefereeService,
     private _authService: AuthService,
+    private _tokenService: TokenService,
   ) {}
 
   @Post('admins')
@@ -68,5 +69,10 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   async login(@Request() { user }) {
     return await this._authService.login(user);
+  }
+
+  @Post('refresh')
+  async getAccessTokenFromRefreshToken(@Body() token: RefreshTokenDto) {
+    return await this._tokenService.refresh(token);
   }
 }

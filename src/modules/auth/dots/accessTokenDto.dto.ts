@@ -5,5 +5,5 @@ export class RefreshTokenDto {
   @IsNotEmpty()
   @IsJWT()
   @ApiProperty()
-  public readonly refresh_token: string;
+  refresh_token: string;
 }

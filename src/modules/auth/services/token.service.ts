@@ -11,7 +11,7 @@ import { Role } from 'src/common/constants';
 import { TokenExpiredError } from 'jsonwebtoken';
 import { TokenExpiredException } from 'src/exceptions/tokenExpired.exception';
 import { TokenMalformedException } from 'src/exceptions/tokenMalformed.exception';
-import { RefreshTokenDto } from '../dots/refreshToken.dto';
+import { AccessTokenDto } from '../dots/accessTokenDto.dto';
 
 @Injectable()
 export class TokenService {
@@ -100,11 +100,11 @@ export class TokenService {
     }
   }
 
-  public async refresh(refreshTokenDto: RefreshTokenDto) {
-    const { refresh_token } = refreshTokenDto;
+  public async refresh(token: AccessTokenDto) {
+    const { access_token } = token;
 
     const newAccessToken = await this.createAccessTokenFromRefreshToken(
-      refresh_token,
+      access_token,
     );
 
     return { access_token: newAccessToken };
