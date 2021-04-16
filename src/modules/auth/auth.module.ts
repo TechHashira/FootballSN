@@ -1,6 +1,7 @@
 import { CacheModule, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
 import * as redisStore from 'cache-manager-redis-store';
 import { AdminModule } from '../admin/admin.module';
 import { CoachModule } from '../coach/coach.module';
@@ -9,6 +10,8 @@ import { RefereeModule } from '../referee/referee.module';
 import { UserModule } from '../user';
 import { AuthController } from './controllers/auth.controller';
 import { AuthService } from './services/auth.service';
+import { TokenService } from './services/token.service';
+import { LocalStrategy } from './strategies/local.strategy';
 
 @Module({
   imports: [
@@ -17,6 +20,7 @@ import { AuthService } from './services/auth.service';
     PlayerModule,
     CoachModule,
     RefereeModule,
+    PassportModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: (_configService: ConfigService) => ({
@@ -37,7 +41,7 @@ import { AuthService } from './services/auth.service';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService],
-  exports: [AuthService],
+  providers: [AuthService, LocalStrategy, TokenService],
+  exports: [AuthService, TokenService],
 })
 export class AuthModule {}

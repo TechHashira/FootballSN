@@ -24,4 +24,8 @@ export class UserService {
       throw new CreatedFailedException(message);
     }
   }
+
+  async findByEmail(email: string): Promise<UserEntity | undefined> {
+    return await this._userRepository.findOne({ email });
+  }
 }

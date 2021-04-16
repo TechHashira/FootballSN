@@ -3,8 +3,11 @@ import {
   ClassSerializerInterceptor,
   Controller,
   Post,
+  Request,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { ResponseTransformInterceptor } from 'src/interceptors/responseTransform.interceptor';
 import { AdminService } from 'src/modules/admin/services/admin.service';
 import { CoachService } from 'src/modules/coach/services/coach.service';
@@ -16,6 +19,9 @@ import { CreatePlayerDto } from 'src/modules/user/dtos/creationalDtos/createPlay
 import { CreateRefereeDto } from 'src/modules/user/dtos/creationalDtos/createRefereeDto.dto';
 import { CreateSpectatorDto } from 'src/modules/user/dtos/creationalDtos/createSpectatorDto.dto';
 import { UserService } from 'src/modules/user/services';
+import { LoginRequestDto } from '../dots/loginRequestDto.dto';
+import { LocalAuthGuard } from '../guards/localAuth.guard';
+import { AuthService } from '../services/auth.service';
 
 @Controller('v1/auth')
 export class AuthController {
@@ -25,6 +31,7 @@ export class AuthController {
     private _coachService: CoachService,
     private _userService: UserService,
     private _refereeService: RefereeService,
+    private _authService: AuthService,
   ) {}
 
   @Post('admins')
@@ -55,5 +62,11 @@ export class AuthController {
   @UseInterceptors(ClassSerializerInterceptor, ResponseTransformInterceptor)
   async registerReferee(@Body() createRefereDto: CreateRefereeDto) {
     return this._refereeService.createReferee(createRefereDto);
+  }
+
+  @Post('login')
+  @UseGuards(LocalAuthGuard)
+  async login(@Request() { user }) {
+    return await this._authService.login(user);
   }
 }
