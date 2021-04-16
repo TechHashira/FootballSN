@@ -1,5 +1,6 @@
 import { TeamEntity } from 'src/modules/team/entities';
 import {
+  Column,
   Entity,
   JoinColumn,
   ManyToOne,
@@ -13,6 +14,9 @@ import { MatchStatsByTeamEntity } from './matchStatsByTeam.entity';
 export class MatchEntity {
   @PrimaryGeneratedColumn('uuid')
   matchId: string;
+
+  @Column({ type: 'boolean', default: false })
+  finalized: boolean;
 
   @ManyToOne(() => MatchHistoryEntity, (matchHistory) => matchHistory.matchs)
   @JoinColumn({ name: 'match_history_id' })

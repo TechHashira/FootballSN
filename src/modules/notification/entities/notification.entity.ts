@@ -1,6 +1,7 @@
 import { UserEntity } from 'src/modules/user/entities';
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
@@ -24,7 +25,7 @@ export class NotificationEntity {
   @Column({ type: 'timestamptz', nullable: true })
   sentAt: Date;
 
-  @Column({ type: 'timestamptz' })
+  @CreateDateColumn({ type: 'timestamp without time zone', default: 'NOW()' })
   createdAt: Date;
 
   @ManyToOne(() => UserEntity, (user) => user.notifications)
