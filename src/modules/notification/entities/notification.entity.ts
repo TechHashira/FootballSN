@@ -28,6 +28,9 @@ export class NotificationEntity {
   @CreateDateColumn({ type: 'timestamp without time zone', default: 'NOW()' })
   createdAt: Date;
 
+  @Column({ type: 'boolean', default: false })
+  checked: boolean;
+
   @ManyToOne(() => UserEntity, (user) => user.notifications)
   @JoinColumn({ name: 'userId' })
   user: UserEntity;
