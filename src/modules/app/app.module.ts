@@ -1,10 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AdminModule } from '../admin/admin.module';
 import { AuthModule } from '../auth/auth.module';
-import { DeviceModule } from '../devices/device.module';
-import { UserModule } from '../user';
 
 @Module({
   imports: [
