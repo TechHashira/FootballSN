@@ -8,10 +8,7 @@ import { UserModule } from '../user';
 
 @Module({
   imports: [
-    AdminModule,
     AuthModule,
-    UserModule,
-    DeviceModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),

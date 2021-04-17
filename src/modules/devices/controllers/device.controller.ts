@@ -1,4 +1,13 @@
-import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpStatus,
+  Post,
+  Req,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
+import { Response } from 'express';
 import { JwtAuthGuard } from 'src/modules/auth/guards/accessToken.guard';
 import { SaveFcmTokenDto } from '../dtos/saveFcmToken.dto';
 import { DeviceService } from '../services/device.service';
@@ -7,12 +16,17 @@ import { DeviceService } from '../services/device.service';
 export class DeviceController {
   constructor(private _deviceService: DeviceService) {}
 
-  @Post('fcm_tokens')
+  @Post('save_fcm_tokens')
   @UseGuards(JwtAuthGuard)
   async saveFcmTokem(
     @Body() saveFcmTokenDto: SaveFcmTokenDto,
     @Req() { user },
+    @Res() res: Response,
   ) {
-    return this._deviceService.saveFcmToken(saveFcmTokenDto, user);
+    await this._deviceService.saveFcmToken(saveFcmTokenDto, user);
+    res.status(HttpStatus.OK).json({
+      code: HttpStatus.OK,
+      message: 'FCM saved correctly>',
+    });
   }
 }

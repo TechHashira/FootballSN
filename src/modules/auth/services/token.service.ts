@@ -109,4 +109,10 @@ export class TokenService {
 
     return { access_token: newAccessToken };
   }
+
+  public async deleteRefreshTokenFronCacheStorage(
+    refresh_token: string,
+  ): Promise<void> {
+    await this._cacheManager.del(refresh_token);
+  }
 }

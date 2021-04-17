@@ -1,13 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { UserService } from 'src/modules/user/services';
 import * as bcrypt from 'bcrypt';
 import { TokenService } from './token.service';
+import { LogOutRequestDto } from '../dots/logOutRequest.dto';
+import { IUserRequest } from '../interfaces/userRequest.interface';
+import { DeviceService } from 'src/modules/devices/services/device.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private _userService: UserService,
     private _tokenService: TokenService,
+    private _deviceService: DeviceService,
   ) {}
 
   async validateUser(email: string, pass: string) {
@@ -21,7 +25,7 @@ export class AuthService {
     return null;
   }
 
-  async login({ userId, roles }: any) {
+  async login({ userId, roles }: IUserRequest) {
     return {
       access_token: await this._tokenService.generateAccessToken(userId, roles),
       refresh_token: await this._tokenService.generateRefreshToken(
@@ -29,5 +33,16 @@ export class AuthService {
         roles,
       ),
     };
+  }
+
+  async logout({ fcm_token, refresh_token }: LogOutRequestDto): Promise<void> {
+    try {
+      await this._tokenService.deleteRefreshTokenFronCacheStorage(
+        refresh_token,
+      );
+      await this._deviceService.updateStateFcmTokem(fcm_token);
+    } catch (error) {
+      throw new BadRequestException();
+    }
   }
 }

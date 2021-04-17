@@ -5,6 +5,7 @@ import { PassportModule } from '@nestjs/passport';
 import * as redisStore from 'cache-manager-redis-store';
 import { AdminModule } from '../admin/admin.module';
 import { CoachModule } from '../coach/coach.module';
+import { DeviceModule } from '../devices/device.module';
 import { PlayerModule } from '../player/player.module';
 import { RefereeModule } from '../referee/referee.module';
 import { UserModule } from '../user';
@@ -21,6 +22,7 @@ import { LocalStrategy } from './strategies/local.strategy';
     PlayerModule,
     CoachModule,
     RefereeModule,
+    DeviceModule,
     PassportModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],

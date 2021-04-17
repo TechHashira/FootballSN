@@ -8,11 +8,19 @@ import { SaveFcmTokenDto } from '../dtos/saveFcmToken.dto';
 export class DeviceService {
   constructor(private readonly _deviceRepository: DeviceRepository) {}
 
-  async saveFcmToken({ fcm_token }: SaveFcmTokenDto, { userId }: any) {
+  async saveFcmToken(
+    { fcm_token }: SaveFcmTokenDto,
+    { userId }: any,
+  ): Promise<void> {
     try {
-      const device = this._deviceRepository.create({ fcm_token, userId });
-      await this._deviceRepository.save(device);
-      return device;
+      const fcm_state = await this.checkFcmState(fcm_token);
+
+      if (!fcm_state) {
+        const device = this._deviceRepository.create({ fcm_token, userId });
+        await this._deviceRepository.save(device);
+      }
+
+      await this.updateStateFcmTokem(fcm_token, true);
     } catch ({ code }) {
       if (code && code === PG_UNIQUE_CONSTRAINT_VIOLATION) {
         throw new CreatedFailedException('fcm token already exist');
@@ -23,5 +31,21 @@ export class DeviceService {
         );
       }
     }
+  }
+
+  async updateStateFcmTokem(
+    fcm_token: string,
+    desiredState?: boolean,
+  ): Promise<void> {
+    const active = !desiredState ? false : true;
+    await this._deviceRepository.update({ fcm_token }, { active });
+  }
+
+  async checkFcmState(fcm_token: string): Promise<boolean> {
+    const device = await this._deviceRepository.findOne({ fcm_token });
+
+    const state = device && !device.active;
+
+    return state;
   }
 }

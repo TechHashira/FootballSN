@@ -2,11 +2,15 @@ import {
   Body,
   ClassSerializerInterceptor,
   Controller,
+  HttpStatus,
   Post,
+  Req,
   Request,
+  Res,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+import { Response } from 'express';
 import { ResponseTransformInterceptor } from 'src/interceptors/responseTransform.interceptor';
 import { AdminService } from 'src/modules/admin/services/admin.service';
 import { CoachService } from 'src/modules/coach/services/coach.service';
@@ -19,6 +23,8 @@ import { CreateRefereeDto } from 'src/modules/user/dtos/creationalDtos/createRef
 import { CreateSpectatorDto } from 'src/modules/user/dtos/creationalDtos/createSpectatorDto.dto';
 import { UserService } from 'src/modules/user/services';
 import { RefreshTokenDto } from '../dots/accessTokenDto.dto';
+import { LogOutRequestDto } from '../dots/logOutRequest.dto';
+import { JwtAuthGuard } from '../guards/accessToken.guard';
 import { LocalAuthGuard } from '../guards/localAuth.guard';
 import { AuthService } from '../services/auth.service';
 import { TokenService } from '../services/token.service';
@@ -69,6 +75,22 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   async login(@Request() { user }) {
     return await this._authService.login(user);
+  }
+
+  @Post('logout')
+  @UseGuards(JwtAuthGuard)
+  async logout(
+    @Body() logOutRequestDto: LogOutRequestDto,
+    @Res() res: Response,
+  ) {
+    await this._authService.logout(logOutRequestDto);
+    res
+      .status(HttpStatus.OK)
+      .json({
+        code: HttpStatus.OK,
+        message: 'Logout successfully',
+      })
+      .send();
   }
 
   @Post('refresh')
