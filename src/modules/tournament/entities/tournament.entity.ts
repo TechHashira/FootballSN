@@ -1,6 +1,7 @@
 import { AdminEntity } from 'src/modules/admin/entities';
 import { JourneyEntity } from 'src/modules/journey/entities';
 import { RulesEntity } from 'src/modules/rules/entities';
+import { SeasonEntity } from 'src/modules/season/entities/season.entity';
 import {
   Column,
   Entity,
@@ -18,12 +19,6 @@ export class TournamentEntity {
   @Column()
   tournament_name: string;
 
-  @Column({ type: 'timestamptz', nullable: true })
-  init_date: Date;
-
-  @Column({ type: 'timestamptz', nullable: true })
-  final_date: Date;
-
   @Column({ type: 'varchar' })
   invitation_code: string;
 
@@ -36,4 +31,7 @@ export class TournamentEntity {
 
   @OneToMany(() => RulesEntity, (rules) => rules.tournament)
   rules: RulesEntity[];
+
+  @OneToMany(() => SeasonEntity, (season) => season.tournament)
+  seasons: SeasonEntity[];
 }
