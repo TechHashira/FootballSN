@@ -8,6 +8,7 @@ import { CoachModule } from '../coach/coach.module';
 import { DeviceModule } from '../devices/device.module';
 import { PlayerModule } from '../player/player.module';
 import { RefereeModule } from '../referee/referee.module';
+import { TournamentModule } from '../tournament/tournament.module';
 import { UserModule } from '../user';
 import { AuthController } from './controllers/auth.controller';
 import { AuthService } from './services/auth.service';
@@ -24,6 +25,7 @@ import { LocalStrategy } from './strategies/local.strategy';
     RefereeModule,
     DeviceModule,
     PassportModule,
+    TournamentModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: (_configService: ConfigService) => ({

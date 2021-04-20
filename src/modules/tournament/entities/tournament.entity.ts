@@ -1,6 +1,5 @@
 import { AdminEntity } from 'src/modules/admin/entities';
 import { JourneyEntity } from 'src/modules/journey/entities';
-import { RulesEntity } from 'src/modules/rules/entities';
 import { SeasonEntity } from 'src/modules/season/entities/season.entity';
 import {
   Column,
@@ -16,11 +15,20 @@ export class TournamentEntity {
   @PrimaryGeneratedColumn('uuid')
   tournamentId: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   tournament_name: string;
 
   @Column({ type: 'varchar' })
   invitation_code: string;
+
+  @Column({ type: 'smallint' })
+  timeOfEachHalf: number;
+
+  @Column({ type: 'smallint' })
+  maxOfPlayersOnCourtPerTeam: number;
+
+  @Column({ type: 'smallint' })
+  maxOfPlayersRegisteredPerTeam: number;
 
   @ManyToOne(() => AdminEntity, (admin) => admin.tournaments)
   @JoinColumn({ name: 'adminId' })
@@ -28,9 +36,6 @@ export class TournamentEntity {
 
   @OneToMany(() => JourneyEntity, (journey) => journey.tournament)
   journeys: JourneyEntity[];
-
-  @OneToMany(() => RulesEntity, (rules) => rules.tournament)
-  rules: RulesEntity[];
 
   @OneToMany(() => SeasonEntity, (season) => season.tournament)
   seasons: SeasonEntity[];

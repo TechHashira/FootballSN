@@ -18,7 +18,7 @@ import { DeviceService } from '../services/device.service';
 export class DeviceController {
   constructor(private _deviceService: DeviceService) {}
 
-  @Post('save_fcm_tokens')
+  @Post('save-fcm-tokens')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   async saveFcmTokem(

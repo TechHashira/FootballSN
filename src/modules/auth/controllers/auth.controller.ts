@@ -24,6 +24,9 @@ import { AdminService } from 'src/modules/admin/services/admin.service';
 import { CoachService } from 'src/modules/coach/services/coach.service';
 import { PlayerService } from 'src/modules/player/services/player.service';
 import { RefereeService } from 'src/modules/referee/services/referee.service';
+import { CreateTournamentDto } from 'src/modules/tournament/dtos/createTournament.dto';
+import { TournamentDto } from 'src/modules/tournament/dtos/tournament.dto';
+import { TournamentService } from 'src/modules/tournament/services/tournament.service';
 import { CreateAdminDto } from 'src/modules/user/dtos/creationalDtos/createAdminDto.dto';
 import { CreateCoachDto } from 'src/modules/user/dtos/creationalDtos/createCoachDto.dto';
 import { CreatePlayerDto } from 'src/modules/user/dtos/creationalDtos/createPlayerDto.dto';
@@ -38,7 +41,7 @@ import { LocalAuthGuard } from '../guards/localAuth.guard';
 import { AuthService } from '../services/auth.service';
 import { TokenService } from '../services/token.service';
 
-@Controller()
+@Controller('v1')
 export class AuthController {
   constructor(
     private _adminService: AdminService,
@@ -48,9 +51,10 @@ export class AuthController {
     private _refereeService: RefereeService,
     private _authService: AuthService,
     private _tokenService: TokenService,
+    private _tournamentService: TournamentService,
   ) {}
 
-  @Post('v1/admins')
+  @Post('admins')
   @ApiTags('Register')
   @UseInterceptors(ResponseTransformInterceptor, ClassSerializerInterceptor)
   @HttpCode(HttpStatus.CREATED)
@@ -66,7 +70,7 @@ export class AuthController {
     return await this._adminService.createAdmin(createAdminDto);
   }
 
-  @Post('v1/players')
+  @Post('players')
   @ApiTags('Register')
   @UseInterceptors(ResponseTransformInterceptor, ClassSerializerInterceptor)
   @ApiOkResponse({
@@ -79,7 +83,7 @@ export class AuthController {
     return await this._playerService.createPlayer(createPlayerDto);
   }
 
-  @Post('v1/coachs')
+  @Post('coachs')
   @ApiTags('Register')
   @UseInterceptors(ResponseTransformInterceptor, ClassSerializerInterceptor)
   @ApiOkResponse({
@@ -92,7 +96,7 @@ export class AuthController {
     return await this._coachService.createCoach(createCoachDto);
   }
 
-  @Post('v1/spectators')
+  @Post('spectators')
   @ApiTags('Register')
   @UseInterceptors(ResponseTransformInterceptor, ClassSerializerInterceptor)
   @ApiOkResponse({
@@ -105,7 +109,7 @@ export class AuthController {
     return await this._userService.createUser(createSpectatorDto);
   }
 
-  @Post('v1/referees')
+  @Post('referees')
   @ApiTags('Register')
   @UseInterceptors(ResponseTransformInterceptor, ClassSerializerInterceptor)
   @ApiOkResponse({
@@ -118,14 +122,26 @@ export class AuthController {
     return this._refereeService.createReferee(createRefereDto);
   }
 
-  @Post('v1/auth/login')
+  @Post('tournaments')
+  @ApiTags('Register')
+  @HttpCode(HttpStatus.CREATED)
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    type: TournamentDto,
+  })
+  @ApiBody({ type: TournamentDto })
+  async registerTournament(createTournamentDto: CreateTournamentDto) {
+    return this._tournamentService.createTournament(createTournamentDto);
+  }
+
+  @Post('auth/login')
   @ApiTags('Auth')
   @UseGuards(LocalAuthGuard)
   async login(@Request() { user }) {
     return await this._authService.login(user);
   }
 
-  @Post('v1/auth/logout')
+  @Post('auth/logout')
   @ApiTags('Auth')
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
@@ -143,7 +159,7 @@ export class AuthController {
       .send();
   }
 
-  @Post('v1/auth/refresh')
+  @Post('auth/refresh')
   @ApiTags('Auth')
   async getAccessTokenFromRefreshToken(@Body() token: RefreshTokenDto) {
     return await this._tokenService.refresh(token);
