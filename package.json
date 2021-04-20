@@ -32,6 +32,7 @@
     "@nestjs/platform-express": "^7.6.15",
     "@nestjs/swagger": "^4.8.0",
     "@nestjs/typeorm": "^7.1.5",
+    "@nextnm/nestjs-ses": "0.0.2",
     "bcrypt": "^5.0.1",
     "cache-manager": "^3.4.3",
     "cache-manager-redis": "^0.6.0",

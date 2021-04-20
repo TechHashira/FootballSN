@@ -7,17 +7,20 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { JwtAuthGuard } from 'src/modules/auth/guards/accessToken.guard';
 import { SaveFcmTokenDto } from '../dtos/saveFcmToken.dto';
 import { DeviceService } from '../services/device.service';
 
-@Controller()
+@Controller('v1/device')
+@ApiTags('Device')
 export class DeviceController {
   constructor(private _deviceService: DeviceService) {}
 
   @Post('save_fcm_tokens')
   @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   async saveFcmTokem(
     @Body() saveFcmTokenDto: SaveFcmTokenDto,
     @Req() { user },
