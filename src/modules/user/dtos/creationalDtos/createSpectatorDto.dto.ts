@@ -8,5 +8,5 @@ export class CreateSpectatorDto extends CreateUserDto {
   @IsNotEmpty()
   @IsEnum(Role)
   @Equals(Role[Role.SPECTATOR], { message: 'Role must to be SPECTATOR' })
-  public roles: Role;
+  public role: Role;
 }

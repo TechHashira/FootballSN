@@ -39,7 +39,7 @@ export class UserEntity {
     type: 'enum',
     enum: Role,
   })
-  roles: Role;
+  role: Role;
 
   @Column({ type: 'varchar', default: 'profile.jpg' })
   profilePath: string;

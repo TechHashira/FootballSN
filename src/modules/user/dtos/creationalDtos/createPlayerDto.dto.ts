@@ -8,5 +8,5 @@ export class CreatePlayerDto extends CreateUserDto {
   @IsNotEmpty()
   @IsEnum(Role)
   @Equals(Role[Role.PLAYER], { message: 'Role must to be PLAYER' })
-  public roles: Role;
+  public role: Role;
 }

@@ -8,5 +8,5 @@ export class CreateRefereeDto extends CreateUserDto {
   @IsNotEmpty()
   @IsEnum(Role)
   @Equals(Role[Role.REFEREE], { message: 'Role must to be REFEREE' })
-  public roles: Role;
+  public role: Role;
 }

@@ -8,5 +8,5 @@ export class CreateAdminDto extends CreateUserDto {
   @IsNotEmpty()
   @IsEnum(Role)
   @Equals(Role[Role.ADMIN], { message: 'Role must to be ADMIN' })
-  public roles: Role;
+  public role: Role;
 }

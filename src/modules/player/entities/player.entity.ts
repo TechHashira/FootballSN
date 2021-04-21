@@ -29,7 +29,7 @@ export class PlayerEntity {
 
   @ManyToOne(() => TeamEntity, (team) => team.players)
   @JoinColumn({ name: 'teamId' })
-  team: PlayerEntity;
+  team: TeamEntity;
 
   @Column({ type: 'uuid', nullable: true })
   teamId: string;
