@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { Role } from 'src/common/constants';
 import { CreatedFailedException } from 'src/exceptions/createdFailed.exception';
 import { SecurityService } from 'src/modules/security/services/security.service';
 import { CreateAdminDto } from 'src/modules/user/dtos/creationalDtos/createAdminDto.dto';
@@ -48,7 +47,7 @@ export class AdminService {
     }
   }
 
-  async validateAdmin(userId: string): Promise<AdminEntity> {
+  async getAdminByUserId(userId: string): Promise<AdminEntity> {
     try {
       const admin = await this._adminRepository.findOne({
         where: { userId },

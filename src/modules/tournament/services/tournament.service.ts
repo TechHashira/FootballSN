@@ -9,25 +9,30 @@ import { v4 as uuidv4 } from 'uuid';
 import { TournamentEntity } from '../entities/tournament.entity';
 import { AdminService } from 'src/modules/admin/services/admin.service';
 import { IUserRequest } from 'src/modules/auth/interfaces/userRequest.interface';
+import { Connection } from 'typeorm';
+import { NewsWallEntity } from 'src/modules/notice/entities';
 
 @Injectable()
 export class TournamentService {
   constructor(
     private readonly _tournamentRepository: TournamentRepository,
     private _adminService: AdminService,
+    private connection: Connection,
   ) {}
 
   async createTournament(
     createTournamentDto: CreateTournamentDto,
     { userId }: IUserRequest,
   ): Promise<TournamentEntity> {
-    const admin = await this._adminService.validateAdmin(userId);
+    const queryRunner = this.connection.createQueryRunner();
 
-    if (!admin) {
-      throw new UnauthorizedException();
-    }
-
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
     try {
+      const admin = await this._adminService.getAdminByUserId(userId);
+      if (!admin) {
+        throw new UnauthorizedException();
+      }
       const invitation_code = await this.generateInvitationCode();
 
       const tournamentObj = { ...createTournamentDto, invitation_code };
@@ -37,12 +42,21 @@ export class TournamentService {
         admin,
       });
 
-      console.log(tournament);
-      await this._tournamentRepository.save(tournament);
+      await queryRunner.manager.save<TournamentEntity>(tournament);
 
+      const newsWall = queryRunner.manager.create<NewsWallEntity>(
+        NewsWallEntity,
+        { tournament },
+      );
+      await queryRunner.manager.save<NewsWallEntity>(newsWall);
+
+      await queryRunner.commitTransaction();
       return tournament;
     } catch (error) {
+      await queryRunner.rollbackTransaction();
       throw new BadRequestException(error);
+    } finally {
+      await queryRunner.release();
     }
   }
 
