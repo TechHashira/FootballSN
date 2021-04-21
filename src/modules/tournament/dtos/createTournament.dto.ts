@@ -1,24 +1,30 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsInt, IsNotEmpty, IsString, Max, Min } from 'class-validator';
 
 export class CreateTournamentDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  tournamentName: string;
+  tournament_name: string;
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsNumber()
+  @IsInt()
+  @Min(10)
+  @Max(45)
   timeOfEachHalf: number;
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsNumber()
+  @IsInt()
+  @Min(3)
+  @Max(11)
   maxOfPlayersOnCourtPerTeam: number;
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsNumber()
+  @IsInt()
+  @Min(6)
+  @Max(20)
   maxOfPlayersRegisteredPerTeam: number;
 }

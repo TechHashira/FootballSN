@@ -119,19 +119,26 @@ export class AuthController {
   })
   @ApiBody({ type: CreateRefereeDto })
   async registerReferee(@Body() createRefereDto: CreateRefereeDto) {
-    return this._refereeService.createReferee(createRefereDto);
+    return await this._refereeService.createReferee(createRefereDto);
   }
 
   @Post('tournaments')
   @ApiTags('Register')
+  @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.CREATED)
   @ApiResponse({
     status: HttpStatus.CREATED,
     type: TournamentDto,
   })
   @ApiBody({ type: TournamentDto })
-  async registerTournament(createTournamentDto: CreateTournamentDto) {
-    return this._tournamentService.createTournament(createTournamentDto);
+  async registerTournament(
+    @Body() createTournamentDto: CreateTournamentDto,
+    @Request() { user },
+  ) {
+    return await this._tournamentService.createTournament(
+      createTournamentDto,
+      user,
+    );
   }
 
   @Post('auth/login')

@@ -1,6 +1,7 @@
 import { TournamentEntity } from 'src/modules/tournament/entities/tournament.entity';
 import { UserEntity } from 'src/modules/user/entities';
 import {
+  Column,
   Entity,
   JoinColumn,
   OneToMany,
@@ -16,6 +17,9 @@ export class AdminEntity {
   @OneToOne(() => UserEntity)
   @JoinColumn({ name: 'userId' })
   user: UserEntity;
+
+  @Column({ type: 'uuid' })
+  userId: string;
 
   @OneToMany(() => TournamentEntity, (tournament) => tournament.admin)
   tournaments: TournamentEntity[];
