@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { CreatedFailedException } from 'src/exceptions/createdFailed.exception';
-import { ContractEntity } from 'src/modules/contract/entities';
 import { SecurityService } from 'src/modules/security/services/security.service';
 import { CreatePlayerDto } from 'src/modules/user/dtos/creationalDtos/createPlayerDto.dto';
 import { UserEntity } from 'src/modules/user/entities';
@@ -34,12 +33,6 @@ export class PlayerService {
         user,
       });
       await queryRunner.manager.save<PlayerEntity>(player);
-
-      const contract = queryRunner.manager.create<ContractEntity>(
-        ContractEntity,
-        { player },
-      );
-      await queryRunner.manager.save<ContractEntity>(contract);
 
       await queryRunner.commitTransaction();
 

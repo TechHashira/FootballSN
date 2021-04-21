@@ -1,10 +1,11 @@
-import { TournamentEntity } from 'src/modules/tournament/entities/tournament.entity';
+import { ContractState } from 'src/common/constants/contractState.constant';
+import { TeamEntity } from 'src/modules/team/entities';
 import { UserEntity } from 'src/modules/user/entities';
 import {
+  Column,
   Entity,
   JoinColumn,
-  JoinTable,
-  ManyToMany,
+  ManyToOne,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -16,6 +17,9 @@ export class PlayerEntity {
   @PrimaryGeneratedColumn('uuid')
   playerId: string;
 
+  @Column({ type: 'enum', enum: ContractState, default: ContractState.Free })
+  contractState: ContractState;
+
   @OneToMany(() => PlayerStatsEntity, (playerStats) => playerStats.player)
   player_stats: PlayerStatsEntity[];
 
@@ -23,7 +27,10 @@ export class PlayerEntity {
   @JoinColumn({ name: 'userId' })
   user: UserEntity;
 
-  @ManyToMany(() => TournamentEntity)
-  @JoinTable()
-  tournaments: TournamentEntity[];
+  @ManyToOne(() => TeamEntity, (team) => team.players)
+  @JoinColumn({ name: 'teamId' })
+  team: PlayerEntity;
+
+  @Column({ type: 'uuid', nullable: true })
+  teamId: string;
 }

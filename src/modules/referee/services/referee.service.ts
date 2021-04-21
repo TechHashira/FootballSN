@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreatedFailedException } from 'src/exceptions/createdFailed.exception';
+import { PlayerEntity } from 'src/modules/player/entities';
 import { SecurityService } from 'src/modules/security/services/security.service';
 import { CreateRefereeDto } from 'src/modules/user/dtos/creationalDtos/createRefereeDto.dto';
 import { UserEntity } from 'src/modules/user/entities';
@@ -29,8 +30,13 @@ export class RefereeService {
       );
       await queryRunner.manager.save<UserEntity>(user);
 
-      const referee = queryRunner.manager.create<RefereeEntity>(RefereeEntity, {
+      const player = queryRunner.manager.create<PlayerEntity>(PlayerEntity, {
         user,
+      });
+      await queryRunner.manager.save<PlayerEntity>(player);
+
+      const referee = queryRunner.manager.create<RefereeEntity>(RefereeEntity, {
+        player,
       });
       await queryRunner.manager.save<RefereeEntity>(referee);
 

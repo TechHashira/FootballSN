@@ -6,12 +6,14 @@ import { CreateCoachDto } from 'src/modules/user/dtos/creationalDtos/createCoach
 import { UserEntity } from 'src/modules/user/entities';
 import { Connection } from 'typeorm';
 import { CoachEntity } from '../entities';
+import { CoachRepository } from '../repositories/coach.repository';
 
 @Injectable()
 export class CoachService {
   constructor(
     private connection: Connection,
     private _securityService: SecurityService,
+    private readonly _coachRepository: CoachRepository,
   ) {}
 
   async createCoach(createCoachDto: CreateCoachDto): Promise<CoachEntity> {
@@ -49,5 +51,9 @@ export class CoachService {
     } finally {
       await queryRunner.release();
     }
+  }
+
+  async findCoachByPlayerId(playerId: string): Promise<CoachEntity> {
+    return await this._coachRepository.findOne({ where: { playerId } });
   }
 }

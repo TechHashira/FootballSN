@@ -1,6 +1,7 @@
 import { AdminEntity } from 'src/modules/admin/entities';
 import { JourneyEntity } from 'src/modules/journey/entities';
 import { SeasonEntity } from 'src/modules/season/entities/season.entity';
+import { TeamEntity } from 'src/modules/team/entities';
 import {
   Column,
   Entity,
@@ -39,4 +40,7 @@ export class TournamentEntity {
 
   @OneToMany(() => SeasonEntity, (season) => season.tournament)
   seasons: SeasonEntity[];
+
+  @OneToMany(() => TeamEntity, (team) => team.tournament)
+  teams: TeamEntity[];
 }

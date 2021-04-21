@@ -1,13 +1,12 @@
 import { CoachEntity } from 'src/modules/coach/entities';
 import { MatchEntity } from 'src/modules/match/entities/match.entity';
 import { MatchStatsByTeamEntity } from 'src/modules/match/entities/matchStatsByTeam.entity';
+import { PlayerEntity } from 'src/modules/player/entities';
 import { TournamentEntity } from 'src/modules/tournament/entities/tournament.entity';
 import {
   Column,
   Entity,
   JoinColumn,
-  JoinTable,
-  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -29,9 +28,8 @@ export class TeamEntity {
   @JoinColumn({ name: 'coachId' })
   coach: CoachEntity;
 
-  @ManyToMany(() => TournamentEntity, { cascade: true })
-  @JoinTable()
-  tournaments: TournamentEntity[];
+  @ManyToOne(() => TournamentEntity, (tournament) => tournament.teams)
+  tournament: TournamentEntity;
 
   @OneToMany(() => TeamStatsEntity, (team_stats) => team_stats.team)
   team_stats: TeamStatsEntity[];
@@ -41,4 +39,7 @@ export class TeamEntity {
 
   @OneToMany(() => MatchStatsByTeamEntity, (matchsStasts) => matchsStasts.team)
   matchsStats: MatchStatsByTeamEntity[];
+
+  @OneToMany(() => PlayerEntity, (player) => player.team)
+  players: PlayerEntity[];
 }

@@ -1,4 +1,4 @@
-import { TournamentEntity } from 'src/modules/tournament/entities/tournament.entity';
+import { SeasonEntity } from 'src/modules/season/entities/season.entity';
 import {
   Column,
   Entity,
@@ -30,7 +30,7 @@ export class PlayerStatsEntity {
   @JoinColumn({ name: 'playerId' })
   player: PlayerEntity;
 
-  @OneToOne(() => TournamentEntity)
-  @JoinColumn({ name: 'tournamentId' })
-  tournament: TournamentEntity;
+  @OneToOne(() => SeasonEntity)
+  @JoinColumn({ name: 'seasonId' })
+  season: SeasonEntity;
 }
