@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { CreateTournamentDto } from './createTournament.dto';
+import { TournamentDto } from './tournament.dto';
 
 export class CreateTournamentResponseDto {
-  @ApiProperty({ type: CreateTournamentDto })
-  readonly data: CreateTournamentDto;
+  @ApiProperty({ type: TournamentDto })
+  readonly data: TournamentDto;
 }

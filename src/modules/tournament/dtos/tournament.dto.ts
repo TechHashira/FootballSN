@@ -2,20 +2,20 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class TournamentDto {
   @ApiProperty()
-  tournamentId: string;
+  readonly tournamentId: string;
 
   @ApiProperty()
-  tournament_name: string;
+  readonly tournament_name: string;
 
   @ApiProperty()
-  invitation_code: string;
+  readonly invitation_code: string;
 
   @ApiProperty()
-  timeOfEachHalf: number;
+  readonly timeOfEachHalf: number;
 
   @ApiProperty()
-  maxOfPlayersOnCourtPerTeam: number;
+  readonly maxOfPlayersOnCourtPerTeam: number;
 
   @ApiProperty()
-  maxOfPlayersRegisteredPerTeam: number;
+  readonly maxOfPlayersRegisteredPerTeam: number;
 }

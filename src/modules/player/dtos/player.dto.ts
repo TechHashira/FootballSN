@@ -9,6 +9,9 @@ export class PlayerDto {
   @ApiProperty()
   playerId: string;
 
-  @ApiProperty({ type: ContractState })
+  @ApiProperty({ type: 'string', default: ContractState.FREE })
   contractState: ContractState;
+
+  @ApiProperty({ type: 'string', default: null })
+  teamId: string;
 }

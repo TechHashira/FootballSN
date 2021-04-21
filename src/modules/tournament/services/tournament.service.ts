@@ -51,6 +51,8 @@ export class TournamentService {
       await queryRunner.manager.save<NewsWallEntity>(newsWall);
 
       await queryRunner.commitTransaction();
+      delete tournament.admin;
+
       return tournament;
     } catch (error) {
       await queryRunner.rollbackTransaction();

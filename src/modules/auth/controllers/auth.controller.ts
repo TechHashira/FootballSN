@@ -21,12 +21,17 @@ import { Response } from 'express';
 import { ResponseTransformInterceptor } from 'src/interceptors/responseTransform.interceptor';
 import { AdminEntity } from 'src/modules/admin/entities';
 import { AdminService } from 'src/modules/admin/services/admin.service';
+import { CreateCoachResponseDto } from 'src/modules/coach/dtos/coachResponse.dto';
 import { CoachService } from 'src/modules/coach/services/coach.service';
+import { CreatePlayerResponseDto } from 'src/modules/player/dtos/createPlayerResponse.dto';
 import { PlayerService } from 'src/modules/player/services/player.service';
+import { CreateRefereeResponseDto } from 'src/modules/referee/dtos/createRefereeResponse.dto';
 import { RefereeService } from 'src/modules/referee/services/referee.service';
 import { CreateTournamentDto } from 'src/modules/tournament/dtos/createTournament.dto';
+import { CreateTournamentResponseDto } from 'src/modules/tournament/dtos/createTournamentResponse.dto';
 import { TournamentDto } from 'src/modules/tournament/dtos/tournament.dto';
 import { TournamentService } from 'src/modules/tournament/services/tournament.service';
+import { CreateSpectatorResponseDto } from 'src/modules/user/dtos/createSpectator.dto';
 import { CreateAdminDto } from 'src/modules/user/dtos/creationalDtos/createAdminDto.dto';
 import { CreateCoachDto } from 'src/modules/user/dtos/creationalDtos/createCoachDto.dto';
 import { CreatePlayerDto } from 'src/modules/user/dtos/creationalDtos/createPlayerDto.dto';
@@ -75,7 +80,7 @@ export class AuthController {
   @UseInterceptors(ResponseTransformInterceptor, ClassSerializerInterceptor)
   @ApiOkResponse({
     status: HttpStatus.CREATED,
-    type: CreatePlayerDto,
+    type: CreatePlayerResponseDto,
     description: 'Successfully created',
   })
   @ApiBody({ type: CreatePlayerDto })
@@ -88,7 +93,7 @@ export class AuthController {
   @UseInterceptors(ResponseTransformInterceptor, ClassSerializerInterceptor)
   @ApiOkResponse({
     status: HttpStatus.CREATED,
-    type: CreateCoachDto,
+    type: CreateCoachResponseDto,
     description: 'Successfully created',
   })
   @ApiBody({ type: CreateCoachDto })
@@ -101,7 +106,7 @@ export class AuthController {
   @UseInterceptors(ResponseTransformInterceptor, ClassSerializerInterceptor)
   @ApiOkResponse({
     status: HttpStatus.CREATED,
-    type: CreateSpectatorDto,
+    type: CreateSpectatorResponseDto,
     description: 'Successfully created',
   })
   @ApiBody({ type: CreateSpectatorDto })
@@ -114,7 +119,7 @@ export class AuthController {
   @UseInterceptors(ResponseTransformInterceptor, ClassSerializerInterceptor)
   @ApiOkResponse({
     status: HttpStatus.CREATED,
-    type: CreateRefereeDto,
+    type: CreateRefereeResponseDto,
     description: 'Successfully created',
   })
   @ApiBody({ type: CreateRefereeDto })
@@ -128,7 +133,7 @@ export class AuthController {
   @HttpCode(HttpStatus.CREATED)
   @ApiResponse({
     status: HttpStatus.CREATED,
-    type: TournamentDto,
+    type: CreateTournamentResponseDto,
   })
   @ApiBody({ type: TournamentDto })
   async registerTournament(

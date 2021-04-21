@@ -17,7 +17,7 @@ export class PlayerEntity {
   @PrimaryGeneratedColumn('uuid')
   playerId: string;
 
-  @Column({ type: 'enum', enum: ContractState, default: ContractState.Free })
+  @Column({ type: 'enum', enum: ContractState, default: ContractState.FREE })
   contractState: ContractState;
 
   @OneToMany(() => PlayerStatsEntity, (playerStats) => playerStats.player)
