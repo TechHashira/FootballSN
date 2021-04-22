@@ -37,7 +37,6 @@ export class TeamService {
         tournament,
       });
 
-      console.log(tournament);
       await this._teamRepository.save(team);
 
       return team;

@@ -5,7 +5,7 @@ import { PlayerService } from 'src/modules/player/services/player.service';
 import { SecurityService } from 'src/modules/security/services/security.service';
 import { CreateCoachDto } from 'src/modules/user/dtos/creationalDtos/createCoachDto.dto';
 import { UserEntity } from 'src/modules/user/entities';
-import { Connection, createQueryBuilder, getManager } from 'typeorm';
+import { Connection } from 'typeorm';
 import { CoachEntity } from '../entities';
 import { CoachRepository } from '../repositories/coach.repository';
 

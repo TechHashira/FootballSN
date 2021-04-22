@@ -28,6 +28,7 @@ import { PlayerService } from 'src/modules/player/services/player.service';
 import { CreateRefereeResponseDto } from 'src/modules/referee/dtos/createRefereeResponse.dto';
 import { RefereeService } from 'src/modules/referee/services/referee.service';
 import { CreateTeamDto } from 'src/modules/team/dtos/createTeam.dto';
+import { CreateTeamResponseDto } from 'src/modules/team/dtos/createTeamResponse.dto';
 import { TeamService } from 'src/modules/team/services/team.service';
 import { CreateTournamentDto } from 'src/modules/tournament/dtos/createTournament.dto';
 import { CreateTournamentResponseDto } from 'src/modules/tournament/dtos/createTournamentResponse.dto';
@@ -153,6 +154,11 @@ export class AuthController {
   @ApiTags('Register')
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.CREATED)
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    type: CreateTeamResponseDto,
+  })
+  @ApiBody({ type: CreateTeamDto })
   async regiterTeam(@Body() createTeamDto: CreateTeamDto, @Request() { user }) {
     return await this._teamService.createTeam(createTeamDto, user);
   }
