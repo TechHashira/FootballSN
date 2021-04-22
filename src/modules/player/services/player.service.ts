@@ -5,12 +5,14 @@ import { CreatePlayerDto } from 'src/modules/user/dtos/creationalDtos/createPlay
 import { UserEntity } from 'src/modules/user/entities';
 import { Connection } from 'typeorm';
 import { PlayerEntity } from '../entities';
+import { PlayerRepository } from '../repositories/player.repository';
 
 @Injectable()
 export class PlayerService {
   constructor(
     private connection: Connection,
     private _securityService: SecurityService,
+    private _playerRepository: PlayerRepository,
   ) {}
 
   async createPlayer(createPlayerDto: CreatePlayerDto): Promise<PlayerEntity> {
@@ -44,5 +46,9 @@ export class PlayerService {
     } finally {
       await queryRunner.release();
     }
+  }
+
+  async findPlayerByUserId(userId: string): Promise<PlayerEntity> {
+    return await this._playerRepository.findOne({ where: { userId } });
   }
 }

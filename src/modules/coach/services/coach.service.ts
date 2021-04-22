@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreatedFailedException } from 'src/exceptions/createdFailed.exception';
 import { PlayerEntity } from 'src/modules/player/entities';
+import { PlayerService } from 'src/modules/player/services/player.service';
 import { SecurityService } from 'src/modules/security/services/security.service';
 import { CreateCoachDto } from 'src/modules/user/dtos/creationalDtos/createCoachDto.dto';
 import { UserEntity } from 'src/modules/user/entities';
-import { Connection } from 'typeorm';
+import { Connection, createQueryBuilder, getManager } from 'typeorm';
 import { CoachEntity } from '../entities';
 import { CoachRepository } from '../repositories/coach.repository';
 
@@ -14,6 +15,7 @@ export class CoachService {
     private connection: Connection,
     private _securityService: SecurityService,
     private readonly _coachRepository: CoachRepository,
+    private _playerService: PlayerService,
   ) {}
 
   async createCoach(createCoachDto: CreateCoachDto): Promise<CoachEntity> {
@@ -55,5 +57,18 @@ export class CoachService {
 
   async findCoachByPlayerId(playerId: string): Promise<CoachEntity> {
     return await this._coachRepository.findOne({ where: { playerId } });
+  }
+
+  async findCoachByUserId(userId: string) {
+    try {
+      const { playerId } = await this._playerService.findPlayerByUserId(userId);
+      const coach = await this._coachRepository.findOne({
+        where: { playerId },
+      });
+
+      return coach;
+    } catch (error) {
+      throw new NotFoundException(error);
+    }
   }
 }

@@ -27,6 +27,8 @@ import { CreatePlayerResponseDto } from 'src/modules/player/dtos/createPlayerRes
 import { PlayerService } from 'src/modules/player/services/player.service';
 import { CreateRefereeResponseDto } from 'src/modules/referee/dtos/createRefereeResponse.dto';
 import { RefereeService } from 'src/modules/referee/services/referee.service';
+import { CreateTeamDto } from 'src/modules/team/dtos/createTeam.dto';
+import { TeamService } from 'src/modules/team/services/team.service';
 import { CreateTournamentDto } from 'src/modules/tournament/dtos/createTournament.dto';
 import { CreateTournamentResponseDto } from 'src/modules/tournament/dtos/createTournamentResponse.dto';
 import { TournamentDto } from 'src/modules/tournament/dtos/tournament.dto';
@@ -57,6 +59,7 @@ export class AuthController {
     private _authService: AuthService,
     private _tokenService: TokenService,
     private _tournamentService: TournamentService,
+    private _teamService: TeamService,
   ) {}
 
   @Post('admins')
@@ -144,6 +147,14 @@ export class AuthController {
       createTournamentDto,
       user,
     );
+  }
+
+  @Post('teams')
+  @ApiTags('Register')
+  @UseGuards(JwtAuthGuard)
+  @HttpCode(HttpStatus.CREATED)
+  async regiterTeam(@Body() createTeamDto: CreateTeamDto, @Request() { user }) {
+    return await this._teamService.createTeam(createTeamDto, user);
   }
 
   @Post('auth/login')

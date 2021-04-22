@@ -27,6 +27,9 @@ export class PlayerEntity {
   @JoinColumn({ name: 'userId' })
   user: UserEntity;
 
+  @Column('uuid')
+  userId: string;
+
   @ManyToOne(() => TeamEntity, (team) => team.players)
   @JoinColumn({ name: 'teamId' })
   team: TeamEntity;

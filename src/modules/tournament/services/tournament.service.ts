@@ -65,4 +65,10 @@ export class TournamentService {
   private async generateInvitationCode(): Promise<string> {
     return uuidv4();
   }
+
+  async findTournamentById(tournamentId: string): Promise<TournamentEntity> {
+    return await this._tournamentRepository.findOne({
+      where: { tournamentId },
+    });
+  }
 }

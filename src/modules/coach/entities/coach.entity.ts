@@ -1,6 +1,7 @@
 import { PlayerEntity } from 'src/modules/player/entities';
 import { TeamEntity } from 'src/modules/team/entities';
 import {
+  Column,
   Entity,
   JoinColumn,
   OneToMany,
@@ -16,6 +17,9 @@ export class CoachEntity {
   @OneToOne(() => PlayerEntity)
   @JoinColumn({ name: 'playerId' })
   player: PlayerEntity;
+
+  @Column('uuid')
+  playerId: string;
 
   @OneToMany(() => TeamEntity, (team) => team.coach)
   teams: TeamEntity[];

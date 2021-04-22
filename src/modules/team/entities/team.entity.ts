@@ -29,6 +29,7 @@ export class TeamEntity {
   coach: CoachEntity;
 
   @ManyToOne(() => TournamentEntity, (tournament) => tournament.teams)
+  @JoinColumn({ name: 'tournamentId' })
   tournament: TournamentEntity;
 
   @OneToMany(() => TeamStatsEntity, (team_stats) => team_stats.team)

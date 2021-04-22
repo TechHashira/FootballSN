@@ -1,11 +1,10 @@
 import { MatchEntity } from 'src/modules/match/entities/match.entity';
-import { TournamentEntity } from 'src/modules/tournament/entities/tournament.entity';
+import { SeasonEntity } from 'src/modules/season/entities/season.entity';
 import {
   Column,
   Entity,
   JoinColumn,
   ManyToOne,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { TeamEntity } from './team.entity';
@@ -39,10 +38,6 @@ export class TeamStatsEntity {
   @Column({ type: 'smallint' })
   points: number;
 
-  @OneToOne(() => TournamentEntity)
-  @JoinColumn({ name: 'tournamentId' })
-  tournament: TournamentEntity;
-
   @ManyToOne(() => TeamEntity, (team) => team.team_stats)
   @JoinColumn({ name: 'teamId' })
   team: TeamEntity;
@@ -50,4 +45,8 @@ export class TeamStatsEntity {
   @ManyToOne(() => MatchEntity, (match) => match.matchsStats)
   @JoinColumn({ name: 'matchId' })
   match: MatchEntity;
+
+  @ManyToOne(() => SeasonEntity, (season) => season.team_stats)
+  @JoinColumn({ name: 'seasonId' })
+  season: SeasonEntity;
 }
