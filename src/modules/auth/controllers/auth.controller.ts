@@ -27,6 +27,10 @@ import { CreatePlayerResponseDto } from 'src/modules/player/dtos/createPlayerRes
 import { PlayerService } from 'src/modules/player/services/player.service';
 import { CreateRefereeResponseDto } from 'src/modules/referee/dtos/createRefereeResponse.dto';
 import { RefereeService } from 'src/modules/referee/services/referee.service';
+import { CreateSeasonDto } from 'src/modules/season/dtos/createSeason.dto';
+import { CreateSeasonResponseDto } from 'src/modules/season/dtos/createSeasonResponse.dto';
+import { SeasonDto } from 'src/modules/season/dtos/season.dto';
+import { SeasonService } from 'src/modules/season/services/season.service';
 import { CreateTeamDto } from 'src/modules/team/dtos/createTeam.dto';
 import { CreateTeamResponseDto } from 'src/modules/team/dtos/createTeamResponse.dto';
 import { TeamService } from 'src/modules/team/services/team.service';
@@ -61,6 +65,7 @@ export class AuthController {
     private _tokenService: TokenService,
     private _tournamentService: TournamentService,
     private _teamService: TeamService,
+    private _seasonService: SeasonService,
   ) {}
 
   @Post('admins')
@@ -134,6 +139,7 @@ export class AuthController {
   @Post('tournaments')
   @ApiTags('Register')
   @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @HttpCode(HttpStatus.CREATED)
   @ApiResponse({
     status: HttpStatus.CREATED,
@@ -153,6 +159,7 @@ export class AuthController {
   @Post('teams')
   @ApiTags('Register')
   @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @HttpCode(HttpStatus.CREATED)
   @ApiResponse({
     status: HttpStatus.CREATED,
@@ -161,6 +168,23 @@ export class AuthController {
   @ApiBody({ type: CreateTeamDto })
   async regiterTeam(@Body() createTeamDto: CreateTeamDto, @Request() { user }) {
     return await this._teamService.createTeam(createTeamDto, user);
+  }
+
+  @Post('seasons')
+  @ApiTags('Register')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @HttpCode(HttpStatus.CREATED)
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    type: CreateSeasonResponseDto,
+  })
+  @ApiBody({ type: CreateSeasonDto })
+  async registerSeason(
+    @Body() createSeasonDto: CreateSeasonDto,
+    @Request() { user },
+  ) {
+    return await this._seasonService.createSeason(createSeasonDto, user);
   }
 
   @Post('auth/login')

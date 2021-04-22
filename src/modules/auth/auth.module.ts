@@ -8,6 +8,7 @@ import { CoachModule } from '../coach/coach.module';
 import { DeviceModule } from '../devices/device.module';
 import { PlayerModule } from '../player/player.module';
 import { RefereeModule } from '../referee/referee.module';
+import { SeasonModule } from '../season/season.module';
 import { TeamModule } from '../team/team.module';
 import { TournamentModule } from '../tournament/tournament.module';
 import { UserModule } from '../user';
@@ -27,6 +28,7 @@ import { LocalStrategy } from './strategies/local.strategy';
     DeviceModule,
     PassportModule,
     TournamentModule,
+    SeasonModule,
     TeamModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],

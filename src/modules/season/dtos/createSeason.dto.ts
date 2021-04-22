@@ -1,13 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDate } from 'class-validator';
+import { IsDateString } from 'class-validator';
 
 export class CreateSeasonDto {
   @ApiProperty()
-  @IsDate()
+  @IsDateString()
   pre_season_init_date: Date;
 
   @ApiProperty()
-  @IsDate()
+  @IsDateString()
   pre_season_final_date: Date;
 
   @ApiProperty()

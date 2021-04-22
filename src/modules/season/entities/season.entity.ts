@@ -4,6 +4,7 @@ import { TournamentEntity } from 'src/modules/tournament/entities/tournament.ent
 import {
   Column,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -26,7 +27,11 @@ export class SeasonEntity {
   @Column({ type: 'timestamptz', nullable: true })
   official_season_final_date?: Date;
 
+  @Column({ type: 'boolean', default: true })
+  seasonState: boolean;
+
   @ManyToOne(() => TournamentEntity, (tournament) => tournament.seasons)
+  @JoinColumn({ name: 'tournamentId' })
   tournament: TournamentEntity;
 
   @OneToMany(() => TeamStatsEntity, (team_stats) => team_stats.season)
