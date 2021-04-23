@@ -1,6 +1,6 @@
-import { JourneyEntity } from 'src/modules/journey/entities';
-import { TeamStatsEntity } from 'src/modules/team/entities';
-import { TournamentEntity } from 'src/modules/tournament/entities/tournament.entity';
+import { JourneyEntity } from '@journey/entities/journey.entity';
+import { TeamStatsEntity } from '@team/entities/teamStats.entity';
+import { TournamentEntity } from '@tournament/entities/tournament.entity';
 import {
   Column,
   Entity,

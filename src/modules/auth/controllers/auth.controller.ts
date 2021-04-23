@@ -1,3 +1,15 @@
+import { AdminEntity } from '@admin/entities/admin.entity';
+import { AdminService } from '@admin/services/admin.service';
+import { RefreshTokenDto } from '@auth/dots/accessTokenDto.dto';
+import { LogOutRequestDto } from '@auth/dots/logOutRequest.dto';
+import { CreateAdminResponseDto } from '@auth/dots/responseDtos/createAdminResponse.dto';
+import { JwtAuthGuard } from '@auth/guards/accessToken.guard';
+import { LocalAuthGuard } from '@auth/guards/localAuth.guard';
+import { AuthService } from '@auth/services/auth.service';
+import { TokenService } from '@auth/services/token.service';
+import { CreateCoachResponseDto } from '@coach/dtos/coachResponse.dto';
+import { CoachService } from '@coach/services/coach.service';
+import { ResponseTransformInterceptor } from '@interceptors/responseTransform.interceptor';
 import {
   Body,
   ClassSerializerInterceptor,
@@ -18,39 +30,27 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Response } from 'express';
-import { ResponseTransformInterceptor } from 'src/interceptors/responseTransform.interceptor';
-import { AdminEntity } from 'src/modules/admin/entities';
-import { AdminService } from 'src/modules/admin/services/admin.service';
-import { CreateCoachResponseDto } from 'src/modules/coach/dtos/coachResponse.dto';
-import { CoachService } from 'src/modules/coach/services/coach.service';
-import { CreatePlayerResponseDto } from 'src/modules/player/dtos/createPlayerResponse.dto';
-import { PlayerService } from 'src/modules/player/services/player.service';
-import { CreateRefereeResponseDto } from 'src/modules/referee/dtos/createRefereeResponse.dto';
-import { RefereeService } from 'src/modules/referee/services/referee.service';
-import { CreateSeasonDto } from 'src/modules/season/dtos/createSeason.dto';
-import { CreateSeasonResponseDto } from 'src/modules/season/dtos/createSeasonResponse.dto';
-import { SeasonService } from 'src/modules/season/services/season.service';
-import { CreateTeamDto } from 'src/modules/team/dtos/createTeam.dto';
-import { CreateTeamResponseDto } from 'src/modules/team/dtos/createTeamResponse.dto';
-import { TeamService } from 'src/modules/team/services/team.service';
-import { CreateTournamentDto } from 'src/modules/tournament/dtos/createTournament.dto';
-import { CreateTournamentResponseDto } from 'src/modules/tournament/dtos/createTournamentResponse.dto';
-import { TournamentDto } from 'src/modules/tournament/dtos/tournament.dto';
-import { TournamentService } from 'src/modules/tournament/services/tournament.service';
-import { CreateSpectatorResponseDto } from 'src/modules/user/dtos/createSpectator.dto';
-import { CreateAdminDto } from 'src/modules/user/dtos/creationalDtos/createAdminDto.dto';
-import { CreateCoachDto } from 'src/modules/user/dtos/creationalDtos/createCoachDto.dto';
-import { CreatePlayerDto } from 'src/modules/user/dtos/creationalDtos/createPlayerDto.dto';
-import { CreateRefereeDto } from 'src/modules/user/dtos/creationalDtos/createRefereeDto.dto';
-import { CreateSpectatorDto } from 'src/modules/user/dtos/creationalDtos/createSpectatorDto.dto';
-import { UserService } from 'src/modules/user/services';
-import { RefreshTokenDto } from '../dots/accessTokenDto.dto';
-import { LogOutRequestDto } from '../dots/logOutRequest.dto';
-import { CreateAdminResponseDto } from '../dots/responseDtos/createAdminResponse.dto';
-import { JwtAuthGuard } from '../guards/accessToken.guard';
-import { LocalAuthGuard } from '../guards/localAuth.guard';
-import { AuthService } from '../services/auth.service';
-import { TokenService } from '../services/token.service';
+import { CreatePlayerResponseDto } from '@player/dtos/createPlayerResponse.dto';
+import { PlayerService } from '@player/services/player.service';
+import { CreateRefereeResponseDto } from '@referee/dtos/createRefereeResponse.dto';
+import { RefereeService } from '@referee/services/referee.service';
+import { CreateSeasonDto } from '@season/dtos/createSeason.dto';
+import { CreateSeasonResponseDto } from '@season/dtos/createSeasonResponse.dto';
+import { SeasonService } from '@season/services/season.service';
+import { CreateTeamDto } from '@team/dtos/createTeam.dto';
+import { CreateTeamResponseDto } from '@team/dtos/createTeamResponse.dto';
+import { TeamService } from '@team/services/team.service';
+import { CreateTournamentDto } from '@tournament/dtos/createTournament.dto';
+import { CreateTournamentResponseDto } from '@tournament/dtos/createTournamentResponse.dto';
+import { TournamentDto } from '@tournament/dtos/tournament.dto';
+import { TournamentService } from '@tournament/services/tournament.service';
+import { CreateSpectatorResponseDto } from '@user/dtos/createSpectator.dto';
+import { CreateAdminDto } from '@user/dtos/creationalDtos/createAdminDto.dto';
+import { CreateCoachDto } from '@user/dtos/creationalDtos/createCoachDto.dto';
+import { CreatePlayerDto } from '@user/dtos/creationalDtos/createPlayerDto.dto';
+import { CreateRefereeDto } from '@user/dtos/creationalDtos/createRefereeDto.dto';
+import { CreateSpectatorDto } from '@user/dtos/creationalDtos/createSpectatorDto.dto';
+import { UserService } from '@user/services/user.service';
 
 @Controller('v1')
 export class AuthController {

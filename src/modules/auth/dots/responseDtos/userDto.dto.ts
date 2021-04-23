@@ -1,5 +1,5 @@
+import { Role } from '@common/constants';
 import { ApiProperty } from '@nestjs/swagger';
-import { Role } from 'src/common/constants';
 
 export class UserDto {
   @ApiProperty()

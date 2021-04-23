@@ -1,4 +1,4 @@
-import { TeamEntity } from 'src/modules/team/entities';
+import { TeamEntity } from '@team/entities/team.entity';
 import {
   Column,
   Entity,

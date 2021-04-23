@@ -1,6 +1,6 @@
+import { CoachPropertiesDto } from '@coach/dtos/coachPropertys.dto';
 import { ApiProperty } from '@nestjs/swagger';
-import { CoachPropertiesDto } from 'src/modules/coach/dtos/coachPropertys.dto';
-import { TournamentDto } from 'src/modules/tournament/dtos/tournament.dto';
+import { TournamentDto } from '@tournament/dtos/tournament.dto';
 
 export class TeamDto {
   @ApiProperty()

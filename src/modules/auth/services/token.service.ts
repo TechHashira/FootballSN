@@ -9,9 +9,9 @@ import { JwtService } from '@nestjs/jwt';
 import { Cache } from 'cache-manager';
 import { Role } from 'src/common/constants';
 import { TokenExpiredError } from 'jsonwebtoken';
-import { TokenExpiredException } from 'src/exceptions/tokenExpired.exception';
-import { TokenMalformedException } from 'src/exceptions/tokenMalformed.exception';
-import { RefreshTokenDto } from '../dots/accessTokenDto.dto';
+import { RefreshTokenDto } from '@auth/dots/accessTokenDto.dto';
+import { TokenExpiredException } from '@exceptions/tokenExpired.exception';
+import { TokenMalformedException } from '@exceptions/tokenMalformed.exception';
 
 @Injectable()
 export class TokenService {

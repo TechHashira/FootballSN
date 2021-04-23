@@ -1,11 +1,11 @@
+import { AdminEntity } from '@admin/entities/admin.entity';
+import { AdminRepository } from '@admin/repositories/admin.repository';
+import { CreatedFailedException } from '@exceptions/createdFailed.exception';
 import { Injectable } from '@nestjs/common';
-import { CreatedFailedException } from 'src/exceptions/createdFailed.exception';
-import { SecurityService } from 'src/modules/security/services/security.service';
-import { CreateAdminDto } from 'src/modules/user/dtos/creationalDtos/createAdminDto.dto';
-import { UserEntity } from 'src/modules/user/entities';
+import { SecurityService } from '@security/services/security.service';
+import { CreateAdminDto } from '@user/dtos/creationalDtos/createAdminDto.dto';
+import { UserEntity } from '@user/entities/user.entity';
 import { Connection } from 'typeorm';
-import { AdminEntity } from '../entities';
-import { AdminRepository } from '../repositories/admin.repository';
 
 @Injectable()
 export class AdminService {

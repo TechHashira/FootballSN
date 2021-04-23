@@ -1,7 +1,7 @@
-import { AdminEntity } from 'src/modules/admin/entities';
-import { JourneyEntity } from 'src/modules/journey/entities';
-import { SeasonEntity } from 'src/modules/season/entities/season.entity';
-import { TeamEntity } from 'src/modules/team/entities';
+import { AdminEntity } from '@admin/entities/admin.entity';
+import { JourneyEntity } from '@journey/entities/journey.entity';
+import { SeasonEntity } from '@season/entities/season.entity';
+import { TeamEntity } from '@team/entities/team.entity';
 import {
   Column,
   Entity,

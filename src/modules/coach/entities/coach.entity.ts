@@ -1,5 +1,5 @@
-import { PlayerEntity } from 'src/modules/player/entities';
-import { TeamEntity } from 'src/modules/team/entities';
+import { PlayerEntity } from '@player/entities/player.entity';
+import { TeamEntity } from '@team/entities/team.entity';
 import {
   Column,
   Entity,

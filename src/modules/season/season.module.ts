@@ -1,7 +1,7 @@
+import { AdminModule } from '@admin/admin.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AdminModule } from '../admin/admin.module';
-import { TournamentRepository } from '../tournament/repositories/tournament.repository';
+import { TournamentRepository } from '@tournament/repositories/tournament.repository';
 import { SeasonController } from './controllers/season.controller';
 import { SeasonRepository } from './repositories/season.repository';
 import { SeasonService } from './services/season.service';

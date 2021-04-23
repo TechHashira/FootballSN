@@ -10,6 +10,31 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
-    "incremental": true
+    "incremental": true,
+    "paths": {
+      "@user/*": ["src/modules/user/*"],
+      "@admin/*": ["src/modules/admin/*"],
+      "@app/*": ["src/modules/app/*"],
+      "@auth/*": ["src/modules/auth/*"],
+      "@aws/*": ["src/modules/aws/*"],
+      "@coach/*": ["src/modules/coach/*"],
+      "@devices/*": ["src/modules/devices/*"],
+      "@journey/*": ["src/modules/journey/*"],
+      "@like/*": ["src/modules/like/*"],
+      "@match/*": ["src/modules/match/*"],
+      "@notice/*": ["src/modules/notice/*"],
+      "@notification/*": ["src/modules/notification/*"],
+      "@player/*": ["src/modules/player/*"],
+      "@referee/*": ["src/modules/referee/*"],
+      "@season/*": ["src/modules/season/*"],
+      "@security/*": ["src/modules/security/*"],
+      "@team/*": ["src/modules/team/*"],
+      "@tournament/*": ["src/modules/tournament/*"],
+      "@exceptions/*": ["src/exceptions/*"],
+      "@common/*": ["src/common/*"],
+      "@interceptors/*": ["src/interceptors/*"],
+      "@decorators/*": ["src/decorators/*"],
+      "@guards/*": ["src/guards/*"]
+    }
   }
 }

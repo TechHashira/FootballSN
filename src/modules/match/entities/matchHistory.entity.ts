@@ -1,5 +1,5 @@
-import { JourneyEntity } from 'src/modules/journey/entities';
-import { RefereeEntity } from 'src/modules/referee/entities/referee.entity';
+import { JourneyEntity } from '@journey/entities/journey.entity';
+import { RefereeEntity } from '@referee/entities/referee.entity';
 import {
   Column,
   Entity,

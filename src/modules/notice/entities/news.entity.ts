@@ -1,5 +1,5 @@
-import { AdminEntity } from 'src/modules/admin/entities';
-import { LikesEntity } from 'src/modules/like/entities';
+import { AdminEntity } from '@admin/entities/admin.entity';
+import { LikesEntity } from '@like/entities/like.entity';
 import {
   Column,
   CreateDateColumn,

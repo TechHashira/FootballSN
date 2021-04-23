@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { SecurityModule } from '../security/security.module';
+import { SecurityModule } from '@security/security.module';
 import { RefereeRepository } from './repositories/referee.repository';
 import { RefereeService } from './services/referee.service';
 

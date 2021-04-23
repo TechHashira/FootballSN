@@ -1,3 +1,6 @@
+import { JwtAuthGuard } from '@auth/guards/accessToken.guard';
+import { SaveFcmTokenDto } from '@devices/dtos/saveFcmToken.dto';
+import { DeviceService } from '@devices/services/device.service';
 import {
   Body,
   Controller,
@@ -9,9 +12,6 @@ import {
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
-import { JwtAuthGuard } from 'src/modules/auth/guards/accessToken.guard';
-import { SaveFcmTokenDto } from '../dtos/saveFcmToken.dto';
-import { DeviceService } from '../services/device.service';
 
 @Controller('v1/device')
 @ApiTags('Device')

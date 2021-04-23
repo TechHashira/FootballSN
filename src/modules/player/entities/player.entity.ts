@@ -1,6 +1,6 @@
-import { ContractState } from 'src/common/constants/contractState.constant';
-import { TeamEntity } from 'src/modules/team/entities';
-import { UserEntity } from 'src/modules/user/entities';
+import { ContractState } from '@common/constants/contractState.constant';
+import { TeamEntity } from '@team/entities/team.entity';
+import { UserEntity } from '@user/entities/user.entity';
 import {
   Column,
   Entity,
@@ -10,7 +10,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { PlayerStatsEntity } from '.';
+import { PlayerStatsEntity } from './playerStats.entity';
 
 @Entity({ name: 'player' })
 export class PlayerEntity {

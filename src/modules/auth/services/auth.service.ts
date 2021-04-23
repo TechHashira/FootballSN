@@ -1,10 +1,10 @@
+import { LogOutRequestDto } from '@auth/dots/logOutRequest.dto';
+import { IUserRequest } from '@auth/interfaces/userRequest.interface';
+import { DeviceService } from '@devices/services/device.service';
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { UserService } from 'src/modules/user/services';
+import { UserService } from '@user/services/user.service';
 import * as bcrypt from 'bcrypt';
 import { TokenService } from './token.service';
-import { LogOutRequestDto } from '../dots/logOutRequest.dto';
-import { IUserRequest } from '../interfaces/userRequest.interface';
-import { DeviceService } from 'src/modules/devices/services/device.service';
 
 @Injectable()
 export class AuthService {

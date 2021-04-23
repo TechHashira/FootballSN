@@ -1,8 +1,8 @@
+import { PG_UNIQUE_CONSTRAINT_VIOLATION } from '@common/constants/errorDatabase.constants';
+import { SaveFcmTokenDto } from '@devices/dtos/saveFcmToken.dto';
+import { DeviceRepository } from '@devices/repositories/device.repository';
+import { CreatedFailedException } from '@exceptions/createdFailed.exception';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { PG_UNIQUE_CONSTRAINT_VIOLATION } from 'src/common/constants/errorDatabase.constants';
-import { CreatedFailedException } from 'src/exceptions/createdFailed.exception';
-import { DeviceRepository } from '../repositories/device.repository';
-import { SaveFcmTokenDto } from '../dtos/saveFcmToken.dto';
 
 @Injectable()
 export class DeviceService {

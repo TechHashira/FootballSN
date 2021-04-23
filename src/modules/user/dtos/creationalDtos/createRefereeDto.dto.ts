@@ -1,6 +1,6 @@
+import { Role } from '@common/constants';
 import { ApiProperty } from '@nestjs/swagger';
 import { Equals, IsEnum, IsNotEmpty } from 'class-validator';
-import { Role } from 'src/common/constants';
 import { CreateUserDto } from './createUser.dto';
 
 export class CreateRefereeDto extends CreateUserDto {

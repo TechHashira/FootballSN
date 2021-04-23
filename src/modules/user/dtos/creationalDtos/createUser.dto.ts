@@ -6,7 +6,7 @@ import {
   Length,
   Validate,
 } from 'class-validator';
-import { IsEmailAlreadyExistsContraint } from '..';
+import { IsEmailAlreadyExistsContraint } from '../isEmailAlreadyExist.cv-decorator';
 
 export class CreateUserDto {
   @ApiProperty()

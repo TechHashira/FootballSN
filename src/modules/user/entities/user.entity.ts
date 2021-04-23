@@ -1,8 +1,8 @@
+import { Role } from '@common/constants';
+import { DeviceEntity } from '@devices/entities/devices.entity';
+import { LikesEntity } from '@like/entities/like.entity';
+import { NotificationEntity } from '@notification/entities/notification.entity';
 import { Exclude } from 'class-transformer';
-import { Role } from 'src/common/constants';
-import { DeviceEntity } from 'src/modules/devices/entities';
-import { LikesEntity } from 'src/modules/like/entities';
-import { NotificationEntity } from 'src/modules/notification/entities';
 import {
   Column,
   CreateDateColumn,

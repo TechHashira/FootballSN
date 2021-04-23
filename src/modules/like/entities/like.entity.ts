@@ -1,5 +1,5 @@
-import { NewsEntity } from 'src/modules/notice/entities';
-import { UserEntity } from 'src/modules/user/entities';
+import { NewsEntity } from '@notice/entities/news.entity';
+import { UserEntity } from '@user/entities/user.entity';
 import {
   CreateDateColumn,
   Entity,

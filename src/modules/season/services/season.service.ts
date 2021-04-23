@@ -1,15 +1,15 @@
+import { AdminService } from '@admin/services/admin.service';
+import { IUserRequest } from '@auth/interfaces/userRequest.interface';
+import { CreatedFailedException } from '@exceptions/createdFailed.exception';
 import {
   Injectable,
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { CreatedFailedException } from 'src/exceptions/createdFailed.exception';
-import { AdminService } from 'src/modules/admin/services/admin.service';
-import { IUserRequest } from 'src/modules/auth/interfaces/userRequest.interface';
-import { TournamentRepository } from 'src/modules/tournament/repositories/tournament.repository';
-import { CreateSeasonDto } from '../dtos/createSeason.dto';
-import { SeasonEntity } from '../entities/season.entity';
-import { SeasonRepository } from '../repositories/season.repository';
+import { CreateSeasonDto } from '@season/dtos/createSeason.dto';
+import { SeasonEntity } from '@season/entities/season.entity';
+import { SeasonRepository } from '@season/repositories/season.repository';
+import { TournamentRepository } from '@tournament/repositories/tournament.repository';
 
 @Injectable()
 export class SeasonService {

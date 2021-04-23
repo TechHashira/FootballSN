@@ -1,9 +1,9 @@
+import { CreatedFailedException } from '@exceptions/createdFailed.exception';
 import { Injectable } from '@nestjs/common';
-import { CreatedFailedException } from 'src/exceptions/createdFailed.exception';
-import { SecurityService } from 'src/modules/security/services/security.service';
-import { CreateSpectatorDto } from '../dtos/creationalDtos/createSpectatorDto.dto';
-import { UserEntity } from '../entities';
-import { UserRepository } from '../repositories';
+import { SecurityService } from '@security/services/security.service';
+import { CreateSpectatorDto } from '@user/dtos/creationalDtos/createSpectatorDto.dto';
+import { UserEntity } from '@user/entities/user.entity';
+import { UserRepository } from '@user/repositories/user.repository';
 
 @Injectable()
 export class UserService {

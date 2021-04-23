@@ -1,8 +1,8 @@
+import { CoachModule } from '@coach/coach.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CoachModule } from '../coach/coach.module';
-import { SeasonRepository } from '../season/repositories/season.repository';
-import { TournamentModule } from '../tournament/tournament.module';
+import { SeasonRepository } from '@season/repositories/season.repository';
+import { TournamentModule } from '@tournament/tournament.module';
 import { TeamRepository } from './repositories/team.repository';
 import { TeamService } from './services/team.service';
 

@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { TournamentDto } from 'src/modules/tournament/dtos/tournament.dto';
+import { TournamentDto } from '@tournament/dtos/tournament.dto';
 
 export class SeasonDto {
   @ApiProperty()

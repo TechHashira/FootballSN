@@ -1,4 +1,4 @@
-import { SeasonEntity } from 'src/modules/season/entities/season.entity';
+import { SeasonEntity } from '@season/entities/season.entity';
 import {
   Column,
   Entity,
@@ -7,7 +7,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { PlayerEntity } from '.';
+import { PlayerEntity } from './player.entity';
 
 @Entity({ name: 'player_stats' })
 export class PlayerStatsEntity {

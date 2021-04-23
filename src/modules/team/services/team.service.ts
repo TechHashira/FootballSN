@@ -1,19 +1,19 @@
+import { IUserRequest } from '@auth/interfaces/userRequest.interface';
+import { CoachService } from '@coach/services/coach.service';
+import { CreatedFailedException } from '@exceptions/createdFailed.exception';
 import {
   Injectable,
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
+import { SeasonRepository } from '@season/repositories/season.repository';
+import { CreateTeamDto } from '@team/dtos/createTeam.dto';
+import { TeamEntity } from '@team/entities/team.entity';
+import { TeamRepository } from '@team/repositories/team.repository';
+import { TournamentEntity } from '@tournament/entities/tournament.entity';
+import { TournamentService } from '@tournament/services/tournament.service';
 import { isAfter, isBefore } from 'date-fns';
-import { CreatedFailedException } from 'src/exceptions/createdFailed.exception';
-import { IUserRequest } from 'src/modules/auth/interfaces/userRequest.interface';
-import { CoachService } from 'src/modules/coach/services/coach.service';
-import { SeasonRepository } from 'src/modules/season/repositories/season.repository';
-import { TournamentEntity } from 'src/modules/tournament/entities/tournament.entity';
-import { TournamentService } from 'src/modules/tournament/services/tournament.service';
 import { getConnection } from 'typeorm';
-import { CreateTeamDto } from '../dtos/createTeam.dto';
-import { TeamEntity } from '../entities';
-import { TeamRepository } from '../repositories/team.repository';
 
 @Injectable()
 export class TeamService {

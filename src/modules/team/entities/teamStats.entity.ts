@@ -1,5 +1,5 @@
-import { MatchEntity } from 'src/modules/match/entities/match.entity';
-import { SeasonEntity } from 'src/modules/season/entities/season.entity';
+import { MatchEntity } from '@match/entities/match.entity';
+import { SeasonEntity } from '@season/entities/season.entity';
 import {
   Column,
   Entity,

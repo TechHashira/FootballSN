@@ -1,5 +1,5 @@
+import { UserDto } from '@auth/dots/responseDtos/userDto.dto';
 import { ApiProperty } from '@nestjs/swagger';
-import { UserDto } from 'src/modules/auth/dots/responseDtos/userDto.dto';
 
 export class CreateSpectatorResponseDto {
   @ApiProperty({ type: UserDto })

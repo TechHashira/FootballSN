@@ -1,4 +1,4 @@
-import { Role } from 'src/common/constants';
+import { Role } from '@common/constants';
 
 export interface IUserRequest {
   userId: string;

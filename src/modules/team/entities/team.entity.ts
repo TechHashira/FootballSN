@@ -1,8 +1,8 @@
-import { CoachEntity } from 'src/modules/coach/entities';
-import { MatchEntity } from 'src/modules/match/entities/match.entity';
-import { MatchStatsByTeamEntity } from 'src/modules/match/entities/matchStatsByTeam.entity';
-import { PlayerEntity } from 'src/modules/player/entities';
-import { TournamentEntity } from 'src/modules/tournament/entities/tournament.entity';
+import { CoachEntity } from '@coach/entities/coach.entity';
+import { MatchEntity } from '@match/entities/match.entity';
+import { MatchStatsByTeamEntity } from '@match/entities/matchStatsByTeam.entity';
+import { PlayerEntity } from '@player/entities/player.entity';
+import { TournamentEntity } from '@tournament/entities/tournament.entity';
 import {
   Column,
   CreateDateColumn,

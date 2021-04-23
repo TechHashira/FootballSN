@@ -1,5 +1,5 @@
-import { MatchHistoryEntity } from 'src/modules/match/entities/matchHistory.entity';
-import { PlayerEntity } from 'src/modules/player/entities';
+import { MatchHistoryEntity } from '@match/entities/matchHistory.entity';
+import { PlayerEntity } from '@player/entities/player.entity';
 import {
   Entity,
   JoinColumn,

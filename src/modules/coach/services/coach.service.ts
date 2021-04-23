@@ -1,13 +1,13 @@
+import { CoachEntity } from '@coach/entities/coach.entity';
+import { CoachRepository } from '@coach/repositories/coach.repository';
+import { CreatedFailedException } from '@exceptions/createdFailed.exception';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreatedFailedException } from 'src/exceptions/createdFailed.exception';
-import { PlayerEntity } from 'src/modules/player/entities';
-import { PlayerService } from 'src/modules/player/services/player.service';
-import { SecurityService } from 'src/modules/security/services/security.service';
-import { CreateCoachDto } from 'src/modules/user/dtos/creationalDtos/createCoachDto.dto';
-import { UserEntity } from 'src/modules/user/entities';
+import { PlayerEntity } from '@player/entities/player.entity';
+import { PlayerService } from '@player/services/player.service';
+import { SecurityService } from '@security/services/security.service';
+import { CreateCoachDto } from '@user/dtos/creationalDtos/createCoachDto.dto';
+import { UserEntity } from '@user/entities/user.entity';
 import { Connection } from 'typeorm';
-import { CoachEntity } from '../entities';
-import { CoachRepository } from '../repositories/coach.repository';
 
 @Injectable()
 export class CoachService {

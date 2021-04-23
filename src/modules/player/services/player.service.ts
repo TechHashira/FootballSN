@@ -1,11 +1,11 @@
+import { CreatedFailedException } from '@exceptions/createdFailed.exception';
 import { Injectable } from '@nestjs/common';
-import { CreatedFailedException } from 'src/exceptions/createdFailed.exception';
-import { SecurityService } from 'src/modules/security/services/security.service';
-import { CreatePlayerDto } from 'src/modules/user/dtos/creationalDtos/createPlayerDto.dto';
-import { UserEntity } from 'src/modules/user/entities';
+import { PlayerEntity } from '@player/entities/player.entity';
+import { PlayerRepository } from '@player/repositories/player.repository';
+import { SecurityService } from '@security/services/security.service';
+import { CreatePlayerDto } from '@user/dtos/creationalDtos/createPlayerDto.dto';
+import { UserEntity } from '@user/entities/user.entity';
 import { Connection } from 'typeorm';
-import { PlayerEntity } from '../entities';
-import { PlayerRepository } from '../repositories/player.repository';
 
 @Injectable()
 export class PlayerService {

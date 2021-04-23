@@ -1,5 +1,5 @@
-import { TournamentEntity } from 'src/modules/tournament/entities/tournament.entity';
-import { UserEntity } from 'src/modules/user/entities';
+import { TournamentEntity } from '@tournament/entities/tournament.entity';
+import { UserEntity } from '@user/entities/user.entity';
 import {
   Column,
   Entity,

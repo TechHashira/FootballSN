@@ -1,11 +1,11 @@
+import { CreatedFailedException } from '@exceptions/createdFailed.exception';
 import { Injectable } from '@nestjs/common';
-import { CreatedFailedException } from 'src/exceptions/createdFailed.exception';
-import { PlayerEntity } from 'src/modules/player/entities';
-import { SecurityService } from 'src/modules/security/services/security.service';
-import { CreateRefereeDto } from 'src/modules/user/dtos/creationalDtos/createRefereeDto.dto';
-import { UserEntity } from 'src/modules/user/entities';
+import { PlayerEntity } from '@player/entities/player.entity';
+import { RefereeEntity } from '@referee/entities/referee.entity';
+import { SecurityService } from '@security/services/security.service';
+import { CreateRefereeDto } from '@user/dtos/creationalDtos/createRefereeDto.dto';
+import { UserEntity } from '@user/entities/user.entity';
 import { Connection } from 'typeorm';
-import { RefereeEntity } from '../entities/referee.entity';
 
 @Injectable()
 export class RefereeService {

@@ -3,14 +3,14 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { CreateTournamentDto } from '../dtos/createTournament.dto';
-import { TournamentRepository } from '../repositories/tournament.repository';
 import { v4 as uuidv4 } from 'uuid';
-import { TournamentEntity } from '../entities/tournament.entity';
-import { AdminService } from 'src/modules/admin/services/admin.service';
-import { IUserRequest } from 'src/modules/auth/interfaces/userRequest.interface';
 import { Connection } from 'typeorm';
-import { NewsWallEntity } from 'src/modules/notice/entities';
+import { AdminService } from '@admin/services/admin.service';
+import { IUserRequest } from '@auth/interfaces/userRequest.interface';
+import { NewsWallEntity } from '@notice/entities/newsWall.entity';
+import { CreateTournamentDto } from '@tournament/dtos/createTournament.dto';
+import { TournamentEntity } from '@tournament/entities/tournament.entity';
+import { TournamentRepository } from '@tournament/repositories/tournament.repository';
 
 @Injectable()
 export class TournamentService {
