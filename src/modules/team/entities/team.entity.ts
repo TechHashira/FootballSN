@@ -5,6 +5,7 @@ import { PlayerEntity } from 'src/modules/player/entities';
 import { TournamentEntity } from 'src/modules/tournament/entities/tournament.entity';
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
@@ -23,6 +24,9 @@ export class TeamEntity {
 
   @Column({ type: 'boolean', default: true })
   available: boolean;
+
+  @CreateDateColumn({ type: 'timestamp without time zone', default: 'NOW()' })
+  createdAt: Date;
 
   @ManyToOne(() => CoachEntity, (coach) => coach.teams)
   @JoinColumn({ name: 'coachId' })
