@@ -29,7 +29,6 @@ import { CreateRefereeResponseDto } from 'src/modules/referee/dtos/createReferee
 import { RefereeService } from 'src/modules/referee/services/referee.service';
 import { CreateSeasonDto } from 'src/modules/season/dtos/createSeason.dto';
 import { CreateSeasonResponseDto } from 'src/modules/season/dtos/createSeasonResponse.dto';
-import { SeasonDto } from 'src/modules/season/dtos/season.dto';
 import { SeasonService } from 'src/modules/season/services/season.service';
 import { CreateTeamDto } from 'src/modules/team/dtos/createTeam.dto';
 import { CreateTeamResponseDto } from 'src/modules/team/dtos/createTeamResponse.dto';
