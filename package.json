@@ -98,12 +98,37 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^@admin/(.*)": "<rootDir>/modules/admin/$1",
+      "^@user/(.*)": "<rootDir>/modules/user/$1",
+      "^@app/(.*)": "<rootDir>/modules/app/$1",
+      "^@auth/(.*)": "<rootDir>/modules/auth/$1",
+      "^@aws/(.*)": "<rootDir>/modules/aws/$1",
+      "^@coach/(.*)": "<rootDir>/modules/coach/$1",
+      "^@devices/(.*)": "<rootDir>/modules/devices/$1",
+      "^@journey/(.*)": "<rootDir>/modules/journey/$1",
+      "^@like/(.*)": "<rootDir>/modules/like/$1",
+      "^@match/(.*)": "<rootDir>/modules/match/$1",
+      "^@notice/(.*)": "<rootDir>/modules/notice/$1",
+      "^@notification/(.*)": "<rootDir>/modules/notification/$1",
+      "^@player/(.*)": "<rootDir>/modules/player/$1",
+      "^@referee/(.*)": "<rootDir>/modules/referee/$1",
+      "^@season/(.*)": "<rootDir>/modules/season/$1",
+      "^@security/(.*)": "<rootDir>/modules/security/$1",
+      "^@team/(.*)": "<rootDir>/modules/team/$1",
+      "^@tournament/(.*)": "<rootDir>/modules/tournament/$1",
+      "^@exceptions/(.*)": "<rootDir>/exceptions/$1",
+      "^@common/(.*)": "<rootDir>/common/$1",
+      "^@interceptors/(.*)": "<rootDir>/interceptors/$1",
+      "^@decorators/(.*)": "<rootDir>/decorators/$1",
+      "^@guards/(.*)": "<rootDir>/guards/$1"
+    }
   },
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "npm run format && npm run lint"
+      "pre-commit": "npm run format && npm run lint && npm test"
     }
   }
 }

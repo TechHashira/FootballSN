@@ -1,4 +1,4 @@
-import { TournamentEntity } from 'src/modules/tournament/entities/tournament.entity';
+import { TournamentEntity } from '@tournament/entities/tournament.entity';
 import {
   Entity,
   JoinColumn,

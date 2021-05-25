@@ -35,9 +35,6 @@ export class TournamentEntity {
   @JoinColumn({ name: 'adminId' })
   admin: AdminEntity;
 
-  @OneToMany(() => JourneyEntity, (journey) => journey.tournament)
-  journeys: JourneyEntity[];
-
   @OneToMany(() => SeasonEntity, (season) => season.tournament)
   seasons: SeasonEntity[];
 
