@@ -2,41 +2,22 @@ import { CreatedFailedException } from '@exceptions/createdFailed.exception';
 import { Injectable } from '@nestjs/common';
 import { PlayerEntity } from '@player/entities/player.entity';
 import { RefereeEntity } from '@referee/entities/referee.entity';
-import { SecurityService } from '@security/services/security.service';
-import { CreateRefereeDto } from '@user/dtos/creationalDtos/createRefereeDto.dto';
 import { UserEntity } from '@user/entities/user.entity';
 import { Connection } from 'typeorm';
 
 @Injectable()
 export class RefereeService {
-  constructor(
-    private connection: Connection,
-    private _securityService: SecurityService,
-  ) {}
+  constructor(private connection: Connection) {}
 
-  async createReferee(createRefereeDto: CreateRefereeDto) {
+  async createReferee(user: UserEntity) {
     const queryRunner = this.connection.createQueryRunner();
 
     await queryRunner.connect();
     await queryRunner.startTransaction();
 
     try {
-      const dtoHashed = await this._securityService.hashPassword(
-        createRefereeDto,
-      );
-      const user = queryRunner.manager.create<UserEntity>(
-        UserEntity,
-        dtoHashed,
-      );
-      await queryRunner.manager.save<UserEntity>(user);
-
-      const player = queryRunner.manager.create<PlayerEntity>(PlayerEntity, {
-        user,
-      });
-      await queryRunner.manager.save<PlayerEntity>(player);
-
       const referee = queryRunner.manager.create<RefereeEntity>(RefereeEntity, {
-        player,
+        user,
       });
       await queryRunner.manager.save<RefereeEntity>(referee);
 

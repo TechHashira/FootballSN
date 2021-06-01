@@ -2,10 +2,7 @@ import { CoachEntity } from '@coach/entities/coach.entity';
 import { CoachRepository } from '@coach/repositories/coach.repository';
 import { CreatedFailedException } from '@exceptions/createdFailed.exception';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { PlayerEntity } from '@player/entities/player.entity';
 import { PlayerService } from '@player/services/player.service';
-import { SecurityService } from '@security/services/security.service';
-import { CreateCoachDto } from '@user/dtos/creationalDtos/createCoachDto.dto';
 import { UserEntity } from '@user/entities/user.entity';
 import { Connection } from 'typeorm';
 
@@ -13,34 +10,19 @@ import { Connection } from 'typeorm';
 export class CoachService {
   constructor(
     private connection: Connection,
-    private _securityService: SecurityService,
     private readonly _coachRepository: CoachRepository,
     private _playerService: PlayerService,
   ) {}
 
-  async createCoach(createCoachDto: CreateCoachDto): Promise<CoachEntity> {
+  async createCoach(user: UserEntity): Promise<CoachEntity> {
     const queryRunner = this.connection.createQueryRunner();
 
     await queryRunner.connect();
     await queryRunner.startTransaction();
 
     try {
-      const dtoHashed = await this._securityService.hashPassword(
-        createCoachDto,
-      );
-      const user = queryRunner.manager.create<UserEntity>(
-        UserEntity,
-        dtoHashed,
-      );
-      await queryRunner.manager.save<UserEntity>(user);
-
-      const player = queryRunner.manager.create<PlayerEntity>(PlayerEntity, {
-        user,
-      });
-      await queryRunner.manager.save<PlayerEntity>(player);
-
       const coach = queryRunner.manager.create<CoachEntity>(CoachEntity, {
-        player,
+        user,
       });
       await queryRunner.manager.save<CoachEntity>(coach);
 

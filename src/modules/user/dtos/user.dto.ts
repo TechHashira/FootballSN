@@ -1,4 +1,3 @@
-import { Role } from '@common/constants';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UserDto {
@@ -13,9 +12,6 @@ export class UserDto {
 
   @ApiProperty()
   updatedAt: Date;
-
-  @ApiProperty()
-  roles: Role;
 
   @ApiProperty()
   profilePath: string;

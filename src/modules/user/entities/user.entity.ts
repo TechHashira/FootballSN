@@ -1,4 +1,3 @@
-import { Role } from '@common/constants';
 import { DeviceEntity } from '@devices/entities/devices.entity';
 import { LikesEntity } from '@like/entities/like.entity';
 import { NotificationEntity } from '@notification/entities/notification.entity';
@@ -34,12 +33,6 @@ export class UserEntity {
     nullable: true,
   })
   updatedAt: Date;
-
-  @Column({
-    type: 'enum',
-    enum: Role,
-  })
-  role: Role;
 
   @Column({ type: 'varchar', default: 'profile.jpg' })
   profilePath: string;

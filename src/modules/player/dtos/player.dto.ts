@@ -1,6 +1,6 @@
-import { UserDto } from '@auth/dots/responseDtos/userDto.dto';
 import { ContractState } from '@common/constants/contractState.constant';
 import { ApiProperty } from '@nestjs/swagger';
+import { UserDto } from '@user/dtos/user.dto';
 
 export class PlayerDto {
   @ApiProperty({ type: UserDto })

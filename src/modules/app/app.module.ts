@@ -2,10 +2,12 @@ import { AuthModule } from '@auth/auth.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { RegisterModule } from '../register/register.module';
 
 @Module({
   imports: [
     AuthModule,
+    RegisterModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),

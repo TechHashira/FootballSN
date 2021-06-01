@@ -1,4 +1,4 @@
-import { MatchHistoryEntity } from '@match/entities/matchHistory.entity';
+import { MatchEntity } from '@match/entities/match.entity';
 import { SeasonEntity } from '@season/entities/season.entity';
 import { Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
@@ -7,8 +7,8 @@ export class JourneyEntity {
   @PrimaryGeneratedColumn('uuid')
   journeyId: number;
 
-  @OneToMany(() => MatchHistoryEntity, (match) => match.journey)
-  matchs: MatchHistoryEntity[];
+  @OneToMany(() => MatchEntity, (match) => match.journey)
+  matchs: MatchEntity[];
 
   @ManyToOne(() => SeasonEntity, (season) => season.journeys)
   season: SeasonEntity;

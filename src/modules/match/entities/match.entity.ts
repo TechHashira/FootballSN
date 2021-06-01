@@ -1,3 +1,4 @@
+import { JourneyEntity } from '@journey/entities/journey.entity';
 import { TeamEntity } from '@team/entities/team.entity';
 import {
   Column,
@@ -7,7 +8,6 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { MatchHistoryEntity } from './matchHistory.entity';
 import { MatchStatsByTeamEntity } from './matchStatsByTeam.entity';
 
 @Entity({ name: 'match' })
@@ -18,9 +18,14 @@ export class MatchEntity {
   @Column({ type: 'boolean', default: false })
   finalized: boolean;
 
-  @ManyToOne(() => MatchHistoryEntity, (matchHistory) => matchHistory.matchs)
-  @JoinColumn({ name: 'match_history_id' })
-  matchHistory: MatchHistoryEntity;
+  @Column({ type: 'timestamptz', nullable: true })
+  date: Date;
+
+  @Column({ type: 'varchar', nullable: true })
+  place: string;
+
+  @ManyToOne(() => JourneyEntity, (journey) => journey.matchs)
+  journey: JourneyEntity;
 
   @ManyToOne(() => TeamEntity, (team) => team.matchs)
   @JoinColumn({ name: 'teamId' })
