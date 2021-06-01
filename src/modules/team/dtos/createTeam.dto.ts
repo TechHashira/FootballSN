@@ -6,14 +6,4 @@ export class CreateTeamDto {
   @IsNotEmpty()
   @Length(3, 25)
   team_name: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @Length(3, 100)
-  invitation_code: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @Length(3, 100)
-  tournamentId: string;
 }

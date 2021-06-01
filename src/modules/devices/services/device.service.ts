@@ -1,3 +1,4 @@
+import { IUserRequest } from '@auth/interfaces/userRequest.interface';
 import { PG_UNIQUE_CONSTRAINT_VIOLATION } from '@common/constants/errorDatabase.constants';
 import { SaveFcmTokenDto } from '@devices/dtos/saveFcmToken.dto';
 import { DeviceRepository } from '@devices/repositories/device.repository';
@@ -10,7 +11,7 @@ export class DeviceService {
 
   async saveFcmToken(
     { fcm_token }: SaveFcmTokenDto,
-    { userId }: any,
+    { userId }: IUserRequest,
   ): Promise<void> {
     try {
       const fcm_state = await this.checkFcmState(fcm_token);
@@ -44,8 +45,6 @@ export class DeviceService {
   async checkFcmState(fcm_token: string): Promise<boolean> {
     const device = await this._deviceRepository.findOne({ fcm_token });
 
-    const state = device && !device.active;
-
-    return state;
+    return device && !device.active;
   }
 }

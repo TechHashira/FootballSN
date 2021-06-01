@@ -29,13 +29,10 @@ export class AuthService {
     return null;
   }
 
-  async login({ userId, roles }: IUserRequest) {
+  async login({ userId }: IUserRequest) {
     return {
-      access_token: await this._tokenService.generateAccessToken(userId, roles),
-      refresh_token: await this._tokenService.generateRefreshToken(
-        userId,
-        roles,
-      ),
+      access_token: await this._tokenService.generateAccessToken(userId),
+      refresh_token: await this._tokenService.generateRefreshToken(userId),
     };
   }
 

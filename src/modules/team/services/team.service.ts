@@ -13,7 +13,6 @@ import { TeamRepository } from '@team/repositories/team.repository';
 import { TournamentEntity } from '@tournament/entities/tournament.entity';
 import { TournamentService } from '@tournament/services/tournament.service';
 import { isAfter, isBefore } from 'date-fns';
-import { getConnection } from 'typeorm';
 
 @Injectable()
 export class TeamService {
@@ -25,37 +24,18 @@ export class TeamService {
   ) {}
 
   async createTeam(
-    { invitation_code, team_name, tournamentId }: CreateTeamDto,
+    { team_name }: CreateTeamDto,
     { userId }: IUserRequest,
   ): Promise<TeamEntity> {
     try {
       const coach = await this._coachService.findCoachByUserId(userId);
 
-      const tournament = await this.checkInvitationCode(
-        invitation_code,
-        tournamentId,
-      );
       const team = this._teamRepository.create({
         team_name,
         coach,
-        tournament,
       });
 
-      const {
-        teamId: teamIdSaved,
-        createdAt,
-      } = await this._teamRepository.save(team);
-
-      if (!(await this.validateRegistrationDate(tournamentId, createdAt))) {
-        await getConnection()
-          .createQueryBuilder()
-          .delete()
-          .from(TeamEntity)
-          .where('teamId = :teamIdSaved', { teamIdSaved })
-          .execute();
-
-        throw new CreatedFailedException('Invalid date for registration');
-      }
+      await this._teamRepository.save(team);
 
       return team;
     } catch (error) {

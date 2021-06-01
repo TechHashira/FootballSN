@@ -16,21 +16,14 @@ export class SeasonService {
   constructor(
     private readonly _seasonRepository: SeasonRepository,
     private readonly _tournamentRepository: TournamentRepository,
-    private _adminService: AdminService,
   ) {}
 
-  async createSeason(
-    {
-      tournamentId,
-      pre_season_init_date,
-      pre_season_final_date,
-    }: CreateSeasonDto,
-    { userId }: IUserRequest,
-  ): Promise<SeasonEntity> {
+  async createSeason({
+    tournamentId,
+    pre_season_init_date,
+    pre_season_final_date,
+  }: CreateSeasonDto): Promise<SeasonEntity> {
     try {
-      const admin = await this._adminService.getAdminByUserId(userId);
-      if (!admin) throw new UnauthorizedException();
-
       const tournament = await this._tournamentRepository.findOne({
         where: { tournamentId },
       });

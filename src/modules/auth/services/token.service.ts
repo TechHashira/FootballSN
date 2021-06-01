@@ -21,18 +21,17 @@ export class TokenService {
     private _configService: ConfigService,
   ) {}
 
-  async generateAccessToken(userId: string, role: Role) {
+  async generateAccessToken(userId: string) {
     return await this._jwtService.signAsync(
-      { sub: userId, role },
+      { sub: userId },
       { expiresIn: this._configService.get<string>('JWT_EXP_ACCESS_TOKEN') },
     );
   }
 
-  async generateRefreshToken(userId: string, role: Role): Promise<string> {
+  async generateRefreshToken(userId: string): Promise<string> {
     const payload = {
       is_revoked: false,
       sub: userId,
-      role,
     };
 
     const token = await this._jwtService.signAsync(payload, {
@@ -72,18 +71,13 @@ export class TokenService {
   }
 
   private async createAccessTokenFromRefreshToken(refreshToken: string) {
-    const { userIdFromClient, role } = await this.resolveRefreshToken(
-      refreshToken,
-    );
+    const { userIdFromClient } = await this.resolveRefreshToken(refreshToken);
 
     if (!userIdFromClient) {
       throw new TokenMalformedException();
     }
 
-    const newAccessToken = await this.generateAccessToken(
-      userIdFromClient,
-      role,
-    );
+    const newAccessToken = await this.generateAccessToken(userIdFromClient);
 
     return newAccessToken;
   }

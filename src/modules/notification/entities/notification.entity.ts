@@ -39,7 +39,7 @@ export class NotificationEntity {
   createdAt: Date;
 
   @Column({ type: 'boolean', default: false })
-  checked: boolean;
+  seen: boolean;
 
   @ManyToOne(() => UserEntity, (user) => user.notifications)
   @JoinColumn({ name: 'userId' })
