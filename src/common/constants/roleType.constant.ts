@@ -5,4 +5,11 @@ export enum Role {
   COACH = 'COACH',
   REFEREE = 'REFEREE',
 }
+
+export enum Notification {
+  PLAYER2TEAM = 'PLAYER2TEAM',
+  TEAM2PLAYER = 'TEAM2PLAYER',
+  REACTION = 'REACTION',
+  TEAM2TOURNAMENT = 'TEAM2TOURNAMENT',
+}
 export const ROLES_KEY = 'roles';

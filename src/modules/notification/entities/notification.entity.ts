@@ -1,3 +1,4 @@
+import { Notification } from '@common/constants';
 import { UserEntity } from '@user/entities/user.entity';
 import {
   Column,
@@ -24,6 +25,15 @@ export class NotificationEntity {
 
   @Column({ type: 'timestamptz', nullable: true })
   sentAt: Date;
+
+  @Column({ type: 'enum', enum: Notification })
+  type: Notification;
+
+  @Column({ type: 'uuid', nullable: true })
+  subjectId: string;
+
+  @Column({ type: 'uuid', nullable: true })
+  subjectObjectiveId: string;
 
   @CreateDateColumn({ type: 'timestamp without time zone', default: 'NOW()' })
   createdAt: Date;

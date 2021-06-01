@@ -25,6 +25,9 @@ export class TeamEntity {
   @Column({ type: 'boolean', default: true })
   available: boolean;
 
+  @Column({ type: 'uuid', nullable: true })
+  tournamentId: string;
+
   @CreateDateColumn({ type: 'timestamp without time zone', default: 'NOW()' })
   createdAt: Date;
 
