@@ -61,21 +61,4 @@ export class TeamService {
 
     return true;
   }
-
-  private async checkInvitationCode(
-    invitation_code: string,
-    tournamentId: string,
-  ): Promise<TournamentEntity> {
-    const tournament = await this._tournamentService.findTournamentById(
-      tournamentId,
-    );
-
-    if (!tournament) throw new NotFoundException();
-
-    if (invitation_code !== tournament.invitation_code) {
-      throw new UnauthorizedException('invalid code or does not exist');
-    }
-
-    return tournament;
-  }
 }

@@ -1,6 +1,5 @@
 import { CreatedFailedException } from '@exceptions/createdFailed.exception';
 import { Injectable } from '@nestjs/common';
-import { PlayerEntity } from '@player/entities/player.entity';
 import { RefereeEntity } from '@referee/entities/referee.entity';
 import { UserEntity } from '@user/entities/user.entity';
 import { Connection } from 'typeorm';

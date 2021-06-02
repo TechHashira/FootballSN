@@ -1,11 +1,5 @@
-import { AdminService } from '@admin/services/admin.service';
-import { IUserRequest } from '@auth/interfaces/userRequest.interface';
 import { CreatedFailedException } from '@exceptions/createdFailed.exception';
-import {
-  Injectable,
-  NotFoundException,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateSeasonDto } from '@season/dtos/createSeason.dto';
 import { SeasonEntity } from '@season/entities/season.entity';
 import { SeasonRepository } from '@season/repositories/season.repository';

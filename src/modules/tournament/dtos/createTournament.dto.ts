@@ -1,7 +1,9 @@
+import { TournamentState } from '@common/constants';
 import { ApiProperty } from '@nestjs/swagger';
+import { SeasonDatesDto } from '@season/dtos/createSeason.dto';
 import { IsInt, IsNotEmpty, IsString, Max, Min } from 'class-validator';
 
-export class CreateTournamentDto {
+export class CreateTournamentDto extends SeasonDatesDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
@@ -27,4 +29,8 @@ export class CreateTournamentDto {
   @Min(6)
   @Max(20)
   maxOfPlayersRegisteredPerTeam: number;
+
+  @ApiProperty({ type: 'enum', enum: TournamentState })
+  @IsNotEmpty()
+  tournament_state: TournamentState;
 }

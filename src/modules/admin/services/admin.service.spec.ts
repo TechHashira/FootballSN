@@ -1,6 +1,5 @@
 import { AdminEntity } from '@admin/entities/admin.entity';
 import { AdminRepository } from '@admin/repositories/admin.repository';
-import { Role } from '@common/constants';
 import { ConfigModule } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 import { SecurityService } from '@security/services/security.service';
@@ -13,7 +12,6 @@ const user_dto = {
   lastname: 'Di Caprio',
   email: 'e@gmail.com',
   password: 'asd123',
-  role: Role.ADMIN,
 };
 
 describe('AdminService', () => {

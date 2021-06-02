@@ -1,5 +1,5 @@
 import { AdminEntity } from '@admin/entities/admin.entity';
-import { JourneyEntity } from '@journey/entities/journey.entity';
+import { TournamentState } from '@common/constants';
 import { SeasonEntity } from '@season/entities/season.entity';
 import { TeamEntity } from '@team/entities/team.entity';
 import {
@@ -19,8 +19,8 @@ export class TournamentEntity {
   @Column({ type: 'varchar' })
   tournament_name: string;
 
-  @Column({ type: 'varchar' })
-  invitation_code: string;
+  @Column({ type: 'enum', enum: TournamentState })
+  tournament_state: TournamentState;
 
   @Column({ type: 'smallint' })
   timeOfEachHalf: number;

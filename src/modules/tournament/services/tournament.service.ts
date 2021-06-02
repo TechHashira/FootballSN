@@ -11,17 +11,21 @@ import { NewsWallEntity } from '@notice/entities/newsWall.entity';
 import { CreateTournamentDto } from '@tournament/dtos/createTournament.dto';
 import { TournamentEntity } from '@tournament/entities/tournament.entity';
 import { TournamentRepository } from '@tournament/repositories/tournament.repository';
+import { SeasonService } from '@season/services/season.service';
+import { CreateSeasonDto } from '@season/dtos/createSeason.dto';
 
 @Injectable()
 export class TournamentService {
   constructor(
     private readonly _tournamentRepository: TournamentRepository,
     private _adminService: AdminService,
+    private _seasonService: SeasonService,
     private connection: Connection,
   ) {}
 
   async createTournament(
     createTournamentDto: CreateTournamentDto,
+    { pre_season_init_date, pre_season_final_date }: CreateSeasonDto,
     { userId }: IUserRequest,
   ): Promise<TournamentEntity> {
     const queryRunner = this.connection.createQueryRunner();
@@ -43,6 +47,11 @@ export class TournamentService {
       });
 
       await queryRunner.manager.save<TournamentEntity>(tournament);
+      const season = {
+        tournamentId: tournament.tournamentId,
+        pre_season_init_date,
+        pre_season_final_date,
+      };
 
       const newsWall = queryRunner.manager.create<NewsWallEntity>(
         NewsWallEntity,
@@ -53,10 +62,12 @@ export class TournamentService {
       await queryRunner.commitTransaction();
       delete tournament.admin;
 
+      await this._seasonService.createSeason(season);
+
       return tournament;
-    } catch (error) {
+    } catch (erro) {
       await queryRunner.rollbackTransaction();
-      throw new BadRequestException(error);
+      throw new BadRequestException(erro);
     } finally {
       await queryRunner.release();
     }

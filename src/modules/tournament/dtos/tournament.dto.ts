@@ -1,3 +1,4 @@
+import { TournamentState } from '@common/constants';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class TournamentDto {
@@ -7,8 +8,8 @@ export class TournamentDto {
   @ApiProperty()
   readonly tournament_name: string;
 
-  @ApiProperty()
-  readonly invitation_code: string;
+  @ApiProperty({ type: 'enum', enum: TournamentState })
+  readonly private: TournamentState;
 
   @ApiProperty()
   readonly timeOfEachHalf: number;

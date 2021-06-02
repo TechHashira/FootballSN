@@ -23,7 +23,6 @@ import { CreateSeasonResponseDto } from '@season/dtos/createSeasonResponse.dto';
 import { SeasonService } from '@season/services/season.service';
 import { CreateTournamentDto } from '@tournament/dtos/createTournament.dto';
 import { CreateTournamentResponseDto } from '@tournament/dtos/createTournamentResponse.dto';
-import { TournamentDto } from '@tournament/dtos/tournament.dto';
 import { TournamentService } from '@tournament/services/tournament.service';
 import { CreateUserDto } from '@user/dtos/createUser.dto';
 import { CreateUserResponseDto } from '@user/dtos/createUserResponse.dto';
@@ -31,7 +30,7 @@ import { UserEntity } from '@user/entities/user.entity';
 import { UserService } from '@user/services/user.service';
 
 @Controller('register')
-export class UsersRegisterController {
+export class RegisterController {
   constructor(
     private _userService: UserService,
     private _tournamentService: TournamentService,
@@ -55,6 +54,7 @@ export class UsersRegisterController {
 
   @Post('tournaments')
   @ApiTags('Register')
+  @UseInterceptors(ResponseTransformInterceptor, ClassSerializerInterceptor)
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @HttpCode(HttpStatus.CREATED)
@@ -62,19 +62,22 @@ export class UsersRegisterController {
     status: HttpStatus.CREATED,
     type: CreateTournamentResponseDto,
   })
-  @ApiBody({ type: TournamentDto })
+  @ApiBody({ type: CreateTournamentDto })
   async registerTournament(
     @Body() createTournamentDto: CreateTournamentDto,
+    @Body() createSeasonDto: CreateSeasonDto,
     @Request() { user },
   ) {
     return await this._tournamentService.createTournament(
       createTournamentDto,
+      createSeasonDto,
       user,
     );
   }
 
   @Post('seasons')
   @ApiTags('Register')
+  @UseInterceptors(ResponseTransformInterceptor, ClassSerializerInterceptor)
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @HttpCode(HttpStatus.CREATED)
