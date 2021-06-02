@@ -5,7 +5,7 @@ import { TournamentRepository } from '@tournament/repositories/tournament.reposi
 export class ValidationTournamentService {
   constructor(private readonly _tournamentRepository: TournamentRepository) {}
 
-  async checkIfTournamentIsPublic(tournamentId: string): Promise<Boolean> {
+  async checkIfTournamentIsPublic(tournamentId: string): Promise<boolean> {
     const { tournament_state } = await this._tournamentRepository.findOne({
       tournamentId,
     });

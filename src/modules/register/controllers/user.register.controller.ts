@@ -7,34 +7,39 @@ import {
   HttpCode,
   HttpStatus,
   Post,
+  Req,
+  Request,
   UseGuards,
   UseInterceptors,
-  Request,
 } from '@nestjs/common';
 import {
-  ApiTags,
-  ApiOkResponse,
   ApiBearerAuth,
   ApiBody,
+  ApiOkResponse,
   ApiResponse,
+  ApiTags,
 } from '@nestjs/swagger';
 import { CreateSeasonDto } from '@season/dtos/createSeason.dto';
 import { CreateSeasonResponseDto } from '@season/dtos/createSeasonResponse.dto';
 import { SeasonService } from '@season/services/season.service';
+import { CreateTeamDto } from '@team/dtos/createTeam.dto';
+import { CreateTeamResponseDto } from '@team/dtos/createTeamResponse.dto';
+import { TeamRegisterService } from '@team/services/team.service';
 import { CreateTournamentDto } from '@tournament/dtos/createTournament.dto';
 import { CreateTournamentResponseDto } from '@tournament/dtos/createTournamentResponse.dto';
 import { TournamentService } from '@tournament/services/tournament.service';
 import { CreateUserDto } from '@user/dtos/createUser.dto';
 import { CreateUserResponseDto } from '@user/dtos/createUserResponse.dto';
 import { UserEntity } from '@user/entities/user.entity';
-import { UserService } from '@user/services/user.service';
+import { UserRegisterService } from '@user/services/user.register.service';
 
-@Controller('register')
+@Controller('v1/register')
 export class RegisterController {
   constructor(
-    private _userService: UserService,
+    private _userService: UserRegisterService,
     private _tournamentService: TournamentService,
     private _seasonService: SeasonService,
+    private _teamRegisterService: TeamRegisterService,
   ) {}
 
   @Post('users')
@@ -88,5 +93,20 @@ export class RegisterController {
   @ApiBody({ type: CreateSeasonDto })
   async registerSeason(@Body() createSeasonDto: CreateSeasonDto) {
     return await this._seasonService.createSeason(createSeasonDto);
+  }
+
+  @Post('teams')
+  @ApiTags('Register')
+  @UseInterceptors(ResponseTransformInterceptor, ClassSerializerInterceptor)
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @HttpCode(HttpStatus.CREATED)
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    type: CreateTeamResponseDto,
+  })
+  @ApiBody({ type: CreateTeamDto })
+  async registerTeam(@Body() createTeamDto: CreateTeamDto, @Req() { user }) {
+    return await this._teamRegisterService.createTeam(createTeamDto, user);
   }
 }

@@ -3,7 +3,6 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { v4 as uuidv4 } from 'uuid';
 import { Connection } from 'typeorm';
 import { AdminService } from '@admin/services/admin.service';
 import { IUserRequest } from '@auth/interfaces/userRequest.interface';
@@ -37,9 +36,8 @@ export class TournamentService {
       if (!admin) {
         throw new UnauthorizedException();
       }
-      const invitation_code = await this.generateInvitationCode();
 
-      const tournamentObj = { ...createTournamentDto, invitation_code };
+      const tournamentObj = { ...createTournamentDto };
 
       const tournament = this._tournamentRepository.create({
         ...tournamentObj,
@@ -71,10 +69,6 @@ export class TournamentService {
     } finally {
       await queryRunner.release();
     }
-  }
-
-  private async generateInvitationCode(): Promise<string> {
-    return uuidv4();
   }
 
   async findTournamentById(tournamentId: string): Promise<TournamentEntity> {

@@ -9,7 +9,7 @@ import { UserController } from './controllers/user.controller';
 import { IsEmailAlreadyExistsContraint } from './dtos/isEmailAlreadyExist.cv-decorator';
 import { UserRepository } from './repositories/user.repository';
 import { UserAuthForgottenPasswordRepository } from './repositories/userAuthForgottenPassword.repository';
-import { UserService } from './services/user.service';
+import { UserRegisterService } from './services/user.register.service';
 
 @Module({
   imports: [
@@ -24,7 +24,7 @@ import { UserService } from './services/user.service';
     ]),
   ],
   controllers: [UserController],
-  exports: [UserService, IsEmailAlreadyExistsContraint],
-  providers: [UserService, IsEmailAlreadyExistsContraint],
+  exports: [UserRegisterService, IsEmailAlreadyExistsContraint],
+  providers: [UserRegisterService, IsEmailAlreadyExistsContraint],
 })
 export class UserModule {}

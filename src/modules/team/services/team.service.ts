@@ -1,25 +1,18 @@
 import { IUserRequest } from '@auth/interfaces/userRequest.interface';
-import { CoachService } from '@coach/services/coach.service';
+import { CoachRepository } from '@coach/repositories/coach.repository';
 import { CreatedFailedException } from '@exceptions/createdFailed.exception';
-import {
-  Injectable,
-  NotFoundException,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { SeasonRepository } from '@season/repositories/season.repository';
 import { CreateTeamDto } from '@team/dtos/createTeam.dto';
 import { TeamEntity } from '@team/entities/team.entity';
 import { TeamRepository } from '@team/repositories/team.repository';
-import { TournamentEntity } from '@tournament/entities/tournament.entity';
-import { TournamentService } from '@tournament/services/tournament.service';
 import { isAfter, isBefore } from 'date-fns';
 
 @Injectable()
-export class TeamService {
+export class TeamRegisterService {
   constructor(
     private readonly _teamRepository: TeamRepository,
-    private _coachService: CoachService,
-    private _tournamentService: TournamentService,
+    private _coachRepository: CoachRepository,
     private _seasonRepository: SeasonRepository,
   ) {}
 
@@ -28,7 +21,8 @@ export class TeamService {
     { userId }: IUserRequest,
   ): Promise<TeamEntity> {
     try {
-      const coach = await this._coachService.findCoachByUserId(userId);
+      const coach = await this._coachRepository.findOne({ where: { userId } });
+      if (!coach) throw new CreatedFailedException();
 
       const team = this._teamRepository.create({
         team_name,

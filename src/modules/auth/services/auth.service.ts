@@ -2,14 +2,14 @@ import { LogOutRequestDto } from '@auth/dots/logOutRequest.dto';
 import { IUserRequest } from '@auth/interfaces/userRequest.interface';
 import { DeviceService } from '@devices/services/device.service';
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { UserService } from '@user/services/user.service';
+import { UserRegisterService } from '@user/services/user.register.service';
 import * as bcrypt from 'bcrypt';
 import { TokenService } from './token.service';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private _userService: UserService,
+    private _userService: UserRegisterService,
     private _tokenService: TokenService,
     private _deviceService: DeviceService,
   ) {}

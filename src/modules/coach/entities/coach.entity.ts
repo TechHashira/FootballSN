@@ -1,6 +1,13 @@
 import { TeamEntity } from '@team/entities/team.entity';
 import { UserEntity } from '@user/entities/user.entity';
-import { Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity({ name: 'coach' })
 export class CoachEntity {
@@ -8,7 +15,11 @@ export class CoachEntity {
   coachId: string;
 
   @OneToOne(() => UserEntity)
+  @JoinColumn({ name: 'userId' })
   user: UserEntity;
+
+  @Column('uuid')
+  userId: string;
 
   @OneToMany(() => TeamEntity, (team) => team.coach)
   teams: TeamEntity[];

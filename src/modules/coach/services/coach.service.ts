@@ -40,17 +40,4 @@ export class CoachService {
   async findCoachByPlayerId(playerId: string): Promise<CoachEntity> {
     return await this._coachRepository.findOne({ where: { playerId } });
   }
-
-  async findCoachByUserId(userId: string) {
-    try {
-      const { playerId } = await this._playerService.findPlayerByUserId(userId);
-      const coach = await this._coachRepository.findOne({
-        where: { playerId },
-      });
-
-      return coach;
-    } catch (error) {
-      throw new NotFoundException(error);
-    }
-  }
 }
