@@ -1,5 +1,6 @@
 import { Notification } from '@common/constants';
 import { UserEntity } from '@user/entities/user.entity';
+import { Exclude } from 'class-transformer';
 import {
   Column,
   CreateDateColumn,
@@ -11,6 +12,10 @@ import {
 
 @Entity({ name: 'notification' })
 export class NotificationEntity {
+  constructor(partial: Partial<NotificationEntity>) {
+    Object.assign(this, partial);
+  }
+
   @PrimaryGeneratedColumn('uuid')
   notificationId: string;
 
@@ -29,10 +34,10 @@ export class NotificationEntity {
   @Column({ type: 'enum', enum: Notification })
   type: Notification;
 
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ type: 'uuid' })
   subjectId: string;
 
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ type: 'uuid' })
   subjectObjectiveId: string;
 
   @CreateDateColumn({ type: 'timestamp without time zone', default: 'NOW()' })
@@ -45,6 +50,7 @@ export class NotificationEntity {
   @JoinColumn({ name: 'userId' })
   user: UserEntity;
 
+  @Exclude()
   @Column({ type: 'uuid' })
   userId: string;
 }

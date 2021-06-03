@@ -14,6 +14,10 @@ import { UserAuthForgottenPasswordEntity } from './userAuthForgottenPassword.ent
 
 @Entity({ name: 'user_table' })
 export class UserEntity {
+  constructor(partial: Partial<UserEntity>) {
+    Object.assign(this, partial);
+  }
+
   @PrimaryGeneratedColumn('uuid')
   userId: string;
 
@@ -60,8 +64,4 @@ export class UserEntity {
 
   @OneToMany(() => LikesEntity, (likes) => likes.user)
   likes: LikesEntity[];
-
-  constructor(partial: Partial<UserEntity>) {
-    Object.assign(this, partial);
-  }
 }

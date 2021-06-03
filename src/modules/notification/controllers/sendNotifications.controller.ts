@@ -7,7 +7,6 @@ import {
   HttpCode,
   HttpStatus,
   Post,
-  Req,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
@@ -32,11 +31,9 @@ export class SendNotificationsController {
   })
   async teamToTournament(
     @Body() sendNotificationMetadataDto: SendNotificationMetadataDto,
-    @Req() { user },
   ): Promise<NotificationEntity> {
     return await this._sendNotificationsService.createNotificationTeamToTournament(
       sendNotificationMetadataDto,
-      user,
     );
   }
 }

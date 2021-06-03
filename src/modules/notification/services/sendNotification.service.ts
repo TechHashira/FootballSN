@@ -1,4 +1,3 @@
-import { IUserRequest } from '@auth/interfaces/userRequest.interface';
 import { Notification } from '@common/constants';
 import { CreatedFailedException } from '@exceptions/createdFailed.exception';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
@@ -7,19 +6,22 @@ import { NotificationEntity } from '@notification/entities/notification.entity';
 import { NotificationRepository } from '@notification/repositories/notification.repository';
 import { TeamRepository } from '@team/repositories/team.repository';
 import { ValidationTournamentService } from '@tournament/services/validations.tournament.service';
+import { GetOwnersService } from './getOwners.service';
 
 @Injectable()
 export class SendNotificationService {
   constructor(
-    private readonly _notificationRepository: NotificationRepository,
-    private readonly _teamRepository: TeamRepository,
     private _validationTournamentService: ValidationTournamentService,
+    private _getOwnersService: GetOwnersService,
+    private readonly _teamRepository: TeamRepository,
+    private readonly _notificationRepository: NotificationRepository,
   ) {}
 
-  async createNotificationTeamToTournament(
-    { subjectId, subjectObjectiveId, message }: SendNotificationMetadataDto,
-    { userId }: IUserRequest,
-  ): Promise<NotificationEntity> {
+  async createNotificationTeamToTournament({
+    subjectId,
+    subjectObjectiveId,
+    message,
+  }: SendNotificationMetadataDto): Promise<NotificationEntity> {
     try {
       const isTournamentPublic = await this._validationTournamentService.checkIfTournamentIsPublic(
         subjectObjectiveId,
@@ -37,13 +39,17 @@ export class SendNotificationService {
         throw new CreatedFailedException();
       }
 
-      const title = team_name;
+      const userIdTarget = await this._getOwnersService.getUserIdByTournamentId(
+        subjectObjectiveId,
+      );
 
       const notification = this._notificationRepository.create({
         message,
-        title,
+        title: team_name,
         type: Notification.TEAM2TOURNAMENT,
-        userId,
+        userId: userIdTarget,
+        subjectId,
+        subjectObjectiveId,
       });
       await this._notificationRepository.save<NotificationEntity>(notification);
 
