@@ -11,6 +11,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { CreateNotficationResponseDto } from '@notification/dtos/createNotificationResponse.dto';
 import { SendNotificationMetadataDto } from '@notification/dtos/sendNotification.dto';
 import { NotificationEntity } from '@notification/entities/notification.entity';
 import { SendNotificationService } from '@notification/services/sendNotification.service';
@@ -28,6 +29,7 @@ export class SendNotificationsController {
   @ApiOkResponse({
     status: HttpStatus.CREATED,
     description: 'Successfully created',
+    type: CreateNotficationResponseDto,
   })
   async teamToTournament(
     @Body() sendNotificationMetadataDto: SendNotificationMetadataDto,

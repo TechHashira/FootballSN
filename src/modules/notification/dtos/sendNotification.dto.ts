@@ -1,4 +1,3 @@
-import { Notification } from '@common/constants';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
 

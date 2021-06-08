@@ -4,8 +4,6 @@ import { getConnection } from 'typeorm';
 
 @Injectable()
 export class GetOwnersService {
-  constructor() {}
-
   async getUserIdByTournamentId(tournamentId: string): Promise<string> {
     const { userId } = await getConnection()
       .createQueryBuilder(AdminEntity, 'admin')

@@ -1,8 +1,7 @@
 import { CoachEntity } from '@coach/entities/coach.entity';
 import { CoachRepository } from '@coach/repositories/coach.repository';
 import { CreatedFailedException } from '@exceptions/createdFailed.exception';
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { PlayerService } from '@player/services/player.service';
+import { Injectable } from '@nestjs/common';
 import { UserEntity } from '@user/entities/user.entity';
 import { Connection } from 'typeorm';
 
@@ -11,7 +10,6 @@ export class CoachService {
   constructor(
     private connection: Connection,
     private readonly _coachRepository: CoachRepository,
-    private _playerService: PlayerService,
   ) {}
 
   async createCoach(user: UserEntity): Promise<CoachEntity> {
