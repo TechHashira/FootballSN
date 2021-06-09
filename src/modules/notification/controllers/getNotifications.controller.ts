@@ -33,8 +33,8 @@ export class GetNotificationsController {
   })
   async getNotifications(
     @Request() { user },
-    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
-    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 10,
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page = 1,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit = 10,
   ) {
     limit = limit > 20 ? 20 : limit;
     return await this._getNotificationService.getNotificationsByUserId(user, {

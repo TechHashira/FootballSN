@@ -6,6 +6,7 @@ import { NotificationEntity } from '@notification/entities/notification.entity';
 import { NotificationRepository } from '@notification/repositories/notification.repository';
 import { TeamTournamentRegisterService } from '@team/services/teamTournamentRegister.service';
 import { SearchUserService } from '@user/services/searchUser.service';
+import { getConnection } from 'typeorm';
 
 @Injectable()
 export class ReactionNotificationService {
@@ -60,10 +61,17 @@ export class ReactionNotificationService {
         userId,
       );
 
-      const result = await this._teamTournamentRegisterService.registerTeamOnTournament(
+      await this._teamTournamentRegisterService.registerTeamOnTournament(
         subjectId,
         subjectObjectiveId,
       );
+
+      await getConnection()
+        .createQueryBuilder()
+        .delete()
+        .from(NotificationEntity)
+        .where('notificationId= :notificationId', { notificationId })
+        .execute();
 
       return reactionNotification;
     } catch (error) {

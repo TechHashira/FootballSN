@@ -17,7 +17,7 @@ export class SendNotificationService {
     private readonly _teamRepository: TeamRepository,
     private readonly _notificationRepository: NotificationRepository,
     private _seasonValidtionService: SeasonValidationService,
-  ) { }
+  ) {}
 
   async createNotificationTeamToTournament({
     subjectId,
