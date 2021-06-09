@@ -7,7 +7,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
-  PrimaryGeneratedColumn,
+  PrimaryGeneratedColumn
 } from 'typeorm';
 
 @Entity({ name: 'notification' })
@@ -34,10 +34,10 @@ export class NotificationEntity {
   @Column({ type: 'enum', enum: Notification })
   type: Notification;
 
-  @Column({ type: 'uuid' })
+  @Column({ type: 'uuid', nullable: true })
   subjectId: string;
 
-  @Column({ type: 'uuid' })
+  @Column({ type: 'uuid', nullable: true })
   subjectObjectiveId: string;
 
   @CreateDateColumn({ type: 'timestamp without time zone', default: 'NOW()' })

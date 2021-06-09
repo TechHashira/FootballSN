@@ -4,6 +4,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { SendNotificationMetadataDto } from '@notification/dtos/sendNotification.dto';
 import { NotificationEntity } from '@notification/entities/notification.entity';
 import { NotificationRepository } from '@notification/repositories/notification.repository';
+import { SeasonValidationService } from '@season/services/season.validation.service';
 import { TeamRepository } from '@team/repositories/team.repository';
 import { ValidationTournamentService } from '@tournament/services/validations.tournament.service';
 import { GetOwnersService } from './getOwners.service';
@@ -15,7 +16,8 @@ export class SendNotificationService {
     private _getOwnersService: GetOwnersService,
     private readonly _teamRepository: TeamRepository,
     private readonly _notificationRepository: NotificationRepository,
-  ) {}
+    private _seasonValidtionService: SeasonValidationService,
+  ) { }
 
   async createNotificationTeamToTournament({
     subjectId,
@@ -27,8 +29,16 @@ export class SendNotificationService {
         subjectObjectiveId,
       );
 
+      const seasonState = await this._seasonValidtionService.validIfExistCurrentSeasonByTournament(
+        subjectObjectiveId,
+      );
+
       if (!isTournamentPublic) {
         throw new UnauthorizedException();
+      }
+
+      if (!seasonState) {
+        throw new UnauthorizedException('Tournamet have a season in progrees');
       }
 
       const { team_name } = await this._teamRepository.findOne({

@@ -6,6 +6,7 @@ import { SeasonRepository } from '@season/repositories/season.repository';
 import { TournamentModule } from '@tournament/tournament.module';
 import { TeamRepository } from './repositories/team.repository';
 import { TeamRegisterService } from './services/team.service';
+import { TeamTournamentRegisterService } from './services/teamTournamentRegister.service';
 
 @Module({
   imports: [
@@ -17,7 +18,7 @@ import { TeamRegisterService } from './services/team.service';
       SeasonRepository,
     ]),
   ],
-  providers: [TeamRegisterService],
-  exports: [TeamRegisterService],
+  providers: [TeamRegisterService, TeamTournamentRegisterService],
+  exports: [TeamRegisterService, TeamTournamentRegisterService],
 })
 export class TeamModule {}

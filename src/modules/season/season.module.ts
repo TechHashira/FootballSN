@@ -5,6 +5,7 @@ import { TournamentRepository } from '@tournament/repositories/tournament.reposi
 import { SeasonController } from './controllers/season.controller';
 import { SeasonRepository } from './repositories/season.repository';
 import { SeasonService } from './services/season.service';
+import { SeasonValidationService } from './services/season.validation.service';
 
 @Module({
   controllers: [SeasonController],
@@ -12,7 +13,7 @@ import { SeasonService } from './services/season.service';
     AdminModule,
     TypeOrmModule.forFeature([TournamentRepository, SeasonRepository]),
   ],
-  exports: [SeasonService],
-  providers: [SeasonService],
+  exports: [SeasonService, SeasonValidationService],
+  providers: [SeasonService, SeasonValidationService],
 })
 export class SeasonModule {}

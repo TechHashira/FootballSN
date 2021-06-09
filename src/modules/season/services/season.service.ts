@@ -4,12 +4,14 @@ import { CreateSeasonDto } from '@season/dtos/createSeason.dto';
 import { SeasonEntity } from '@season/entities/season.entity';
 import { SeasonRepository } from '@season/repositories/season.repository';
 import { TournamentRepository } from '@tournament/repositories/tournament.repository';
+import { SeasonValidationService } from './season.validation.service';
 
 @Injectable()
 export class SeasonService {
   constructor(
     private readonly _seasonRepository: SeasonRepository,
     private readonly _tournamentRepository: TournamentRepository,
+    private _seasonValidationService: SeasonValidationService,
   ) {}
 
   async createSeason({
@@ -23,7 +25,7 @@ export class SeasonService {
       });
       if (!tournament) throw new NotFoundException();
 
-      const seasonStatePerTournament = await this.validIfExistCurrentSeasonByTournament(
+      const seasonStatePerTournament = await this._seasonValidationService.validIfExistCurrentSeasonByTournament(
         tournamentId,
       );
 
@@ -45,16 +47,5 @@ export class SeasonService {
     } catch (error) {
       throw new CreatedFailedException(error);
     }
-  }
-
-  private async validIfExistCurrentSeasonByTournament(
-    tournamentId: string,
-  ): Promise<boolean> {
-    const season = await this._seasonRepository.findOne({
-      relations: ['tournament'],
-      where: { tournament: { tournamentId }, seasonState: true },
-    });
-
-    return !season;
   }
 }
