@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { NotificationRepository } from '@notification/repositories/notification.repository';
-import { SearchUserService } from '@user/services/searchUser.service';
+import { SearchUserService } from '@user/registration/services/searchUser.service';
 
 @Injectable()
 export class AllowtNotificationsService {

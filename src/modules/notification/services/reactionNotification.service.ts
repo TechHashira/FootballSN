@@ -4,8 +4,8 @@ import { Injectable } from '@nestjs/common';
 import { CreateReactionNotificationDto } from '@notification/dtos/CreateReactionNotification.dto';
 import { NotificationEntity } from '@notification/entities/notification.entity';
 import { NotificationRepository } from '@notification/repositories/notification.repository';
-import { TeamTournamentRegisterService } from '@team/services/teamTournamentRegister.service';
-import { SearchUserService } from '@user/services/searchUser.service';
+import { TeamTournamentRegisterService } from '@team/registration/services/teamTournamentRegister.service';
+import { SearchUserService } from '@user/registration/services/searchUser.service';
 import { getConnection } from 'typeorm';
 
 @Injectable()

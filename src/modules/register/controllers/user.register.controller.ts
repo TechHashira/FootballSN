@@ -19,19 +19,19 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { CreateSeasonDto } from '@season/dtos/createSeason.dto';
-import { CreateSeasonResponseDto } from '@season/dtos/createSeasonResponse.dto';
-import { SeasonService } from '@season/services/season.service';
-import { CreateTeamDto } from '@team/dtos/createTeam.dto';
-import { CreateTeamResponseDto } from '@team/dtos/createTeamResponse.dto';
-import { TeamRegisterService } from '@team/services/team.service';
-import { CreateTournamentDto } from '@tournament/dtos/createTournament.dto';
-import { CreateTournamentResponseDto } from '@tournament/dtos/createTournamentResponse.dto';
-import { TournamentService } from '@tournament/services/tournament.service';
-import { CreateUserDto } from '@user/dtos/createUser.dto';
-import { CreateUserResponseDto } from '@user/dtos/createUserResponse.dto';
+import { CreateSeasonDto } from '@season/registration/dtos/createSeason.dto';
+import { CreateSeasonResponseDto } from '@season/registration/dtos/createSeasonResponse.dto';
+import { SeasonService } from '@season/registration/services/season.service';
+import { CreateTeamDto } from '@team/registration/dtos/createTeam.dto';
+import { CreateTeamResponseDto } from '@team/registration/dtos/createTeamResponse.dto';
+import { TeamRegisterService } from '@team/registration/services/team.service';
+import { CreateTournamentDto } from '@tournament/registration/dtos/createTournament.dto';
+import { CreateTournamentResponseDto } from '@tournament/registration/dtos/createTournamentResponse.dto';
+import { TournamentService } from '@tournament/registration/services/tournament.service';
 import { UserEntity } from '@user/entities/user.entity';
-import { UserRegisterService } from '@user/services/user.register.service';
+import { CreateUserDto } from '@user/registration/dtos/createUser.dto';
+import { CreateUserResponseDto } from '@user/registration/dtos/createUserResponse.dto';
+import { UserRegisterService } from '@user/registration/services/user.register.service';
 
 @Controller('v1/register')
 export class RegisterController {
